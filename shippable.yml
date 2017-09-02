@@ -12,8 +12,7 @@ git:
 build:
   pre_ci_boot:
     image_name: drydock/u14cloall
-    image_tag: v5.8.4
-    pull: true
+    image_tag: v5.8.2
 
   ci:
     - java -version
