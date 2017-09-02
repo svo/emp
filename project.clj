@@ -14,6 +14,10 @@
 
   :resource-paths ["config", "resources"]
 
+  :plugins [[info.sunng/lein-bootclasspath-deps "0.2.0"]]
+
+  :java-agents [[org.mortbay.jetty.alpn/jetty-alpn-agent "2.0.6"]]
+
   :profiles {:dev
              {:aliases {"test" "midje"
                         "ancient" ["with-profile" "quality" "ancient"]
