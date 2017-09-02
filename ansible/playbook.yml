@@ -1,0 +1,8 @@
+---
+- hosts: all
+
+  roles:
+
+    - environment-core
+    - environment-openjdk
+    - environment-clojure
