@@ -1,6 +1,7 @@
 # EMP
 
-Project [Trello Board](https://trello.com/b/WoAzNyra/).
+* [Trello Board](https://trello.com/b/WoAzNyra/)
+* [Continuous Integration](https://app.shippable.com/github/svo/emp/dashboard)
 
 NOTE: this project uses git submodules so you will want to clone recursively to have all expected behaviours.
 
