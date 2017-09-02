@@ -29,7 +29,8 @@
               :plugins [[lein-midje "3.2.1"]]
               :dependencies [[org.clojure/tools.cli "0.3.5"]
                              [midje "1.8.3"]
-                             [io.pedestal/pedestal.service-tools "0.5.2"]]}
+                             [io.pedestal/pedestal.service-tools "0.5.2"]
+                             [midje-junit-formatter "0.1.0-SNAPSHOT"]]}
              :quality [:dev
                        {:injections [(require 'midje.config)
                                      (midje.config/change-defaults

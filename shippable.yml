@@ -17,3 +17,4 @@ build:
   ci:
     - java -version
     - ./pre-commit.sh
+    - mv report.xml shippable/testresults

@@ -1,5 +1,6 @@
 # Vagrant
 /.vagrant
+/report.xml
 
 # Java
 pom.xml
