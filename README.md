@@ -3,19 +3,28 @@
 * [Trello Board](https://trello.com/b/WoAzNyra/)
 * [Continuous Integration](https://app.shippable.com/github/svo/emp/dashboard)
 
-NOTE: this project uses git submodules so you will want to clone recursively to have all expected behaviours.
+__NOTE:__ this project uses git submodules so you will want to clone recursively to have all expected behaviours.
 
 ```
 git clone --recursive git@github.com:svo/emp.git
 ```
 
+## Decisions
+
+* using [Clojure](https://clojure.org/)
+	* used on most recent project so using here for familiarity
+
+## Assumptions
+
+* incremental delivery to allow for feedback and demonstrate work patterns and processes is acceptable
+
 ## Development environment
 
 Requirements:
 
-1. Ansible (2.2.2.0)
-2. Vagrant (1.9.3)
-3. VirtualBox (5.1.18 r114002)
+1. [Ansible (2.2.2.0)](https://www.ansible.com/)
+2. [Vagrant (1.9.3)](https://www.vagrantup.com/)
+3. [VirtualBox (5.1.18 r114002)](https://www.virtualbox.org/)
 
 To perform provisioning and start using the development environment run:
 
