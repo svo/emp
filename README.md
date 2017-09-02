@@ -32,13 +32,14 @@ To monitor tests as you edit the source code run the following from the `/vagran
 
 To run tests and generate reports:
 
-* `./pre-commit.sh`
-*
-* ## Local Continuous Integration
-*
-* Navigate to [vagrant-emp-ci.local:8080](http://vagrant-emp-ci.local:8080).
-*
-* ## Links
-* * [Clojure](https://clojure.org)
-* * [Leiningen](http://leiningen.org)
-* * [Midje](https://github.com/marick/Midje)
+`./pre-commit.sh`
+
+## Local Continuous Integration
+
+Navigate to [vagrant-emp-ci.local:8080](http://vagrant-emp-ci.local:8080) if you have `MDNS` support.
+
+## Links
+
+* [Clojure](https://clojure.org)
+* [Leiningen](http://leiningen.org)
+* [Midje](https://github.com/marick/Midje)
