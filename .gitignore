@@ -1,13 +1,38 @@
+# Vagrant
 /.vagrant
-/.lein-*
-/.nrepl-port
 
-/target
-/classes
-/checkouts
-
+# Java
 pom.xml
 pom.xml.asc
-
-*.jar
+*jar
 *.class
+
+# Leiningen
+classes/
+lib/
+native/
+checkouts/
+target/
+.lein-*
+repl-port
+.nrepl-port
+.repl
+
+# Temp Files
+*.orig
+*~
+.*.swp
+.*.swo
+*.tmp
+*.bak
+
+# OS X
+.DS_Store
+
+# Logging
+*.log
+/logs/
+
+# Builds
+out/
+build/

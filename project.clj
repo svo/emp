@@ -1,17 +1,31 @@
 (defproject emp "0.0.1-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [trptcolin/versioneer "0.2.0"]
-                 [org.clojure/tools.cli "0.3.5"]]
+                 [io.pedestal/pedestal.service "0.5.2"]
+                 [io.pedestal/pedestal.jetty "0.5.2"]
+                 [ch.qos.logback/logback-classic "1.2.3"
+                  :exclusions [org.slf4j/slf4j-api]]
+                 [org.slf4j/jul-to-slf4j "1.7.25"]
+                 [org.slf4j/jcl-over-slf4j "1.7.25"]
+                 [org.slf4j/log4j-over-slf4j "1.7.25"]]
 
   :min-lein-version "2.0.0"
   :pedantic? :abort
 
+  :resource-paths ["config", "resources"]
+
   :profiles {:dev
              {:aliases {"test" "midje"
                         "ancient" ["with-profile" "quality" "ancient"]
-                        "quality" ["with-profile" "quality" "test"]}
+                        "quality" ["with-profile" "quality" "test"]
+                        "run-dev" ["trampoline"
+                                   "run"
+                                   "-m"
+                                   "emp.server/run-dev"]}
               :plugins [[lein-midje "3.2.1"]]
-              :dependencies [[midje "1.8.3"]]}
+              :dependencies [[org.clojure/tools.cli "0.3.5"]
+                             [midje "1.8.3"]
+                             [io.pedestal/pedestal.service-tools "0.5.2"]]}
              :quality [:dev
                        {:injections [(require 'midje.config)
                                      (midje.config/change-defaults
@@ -30,4 +44,6 @@
                                                 org.clojure/tools.cli
                                                 org.clojure/tools.namespace]]]
                         :dependencies [[org.clojure/tools.namespace
-                                        "0.2.11"]]}]})
+                                        "0.2.11"]]}]
+             :uberjar {:aot [emp.server]}}
+  :main ^{:skip-aot true} emp.server)
