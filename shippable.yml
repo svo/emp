@@ -13,7 +13,6 @@ build:
   ci:
     - export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
     - export PATH="$PATH:/usr/lib/jvm/java-8-openjdk-amd64/bin"
-    - export java_path="/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
-    - update-alternatives --set java $java_path
+    - update-java-alternatives -s java-1.8.0-openjdk-amd64
     - java -version
     - ./pre-commit.sh
