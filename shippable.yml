@@ -7,9 +7,11 @@ git:
   submodules: false
 
 build:
+  pre_ci_boot:
+    image_name: drydock/u14cloall
+    image_tag: latest
+    pull: true
+
   ci:
-    - export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-    - export PATH="$PATH:/usr/lib/jvm/java-8-openjdk-amd64/bin"
-    - update-java-alternatives -s java-1.8.0-openjdk-amd64
     - java -version
     - ./pre-commit.sh
