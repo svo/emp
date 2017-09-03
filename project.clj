@@ -26,7 +26,17 @@
                                    "run"
                                    "-m"
                                    "emp.server/run-dev"]}
-              :plugins [[lein-midje "3.2.1"]]
+              :plugins [[lein-midje "3.2.1"]
+                        [lein-cloverage "1.0.9"
+                         :exclusions [org.clojure/clojure
+                                      cloverage]]]
+              :managed-dependencies [[cloverage "RELEASE"
+                                      :exclusions
+                                      [com.fasterxml.jackson.dataformat/jackson-dataformat-smile
+                                       com.fasterxml.jackson.dataformat/jackson-dataformat-cbor
+                                       cheshire
+                                       org.clojure/data.xml
+                                       com.fasterxml.jackson.core/jackson-core]]]
               :dependencies [[org.clojure/tools.cli "0.3.5"]
                              [midje "1.8.3"]
                              [io.pedestal/pedestal.service-tools "0.5.2"]
