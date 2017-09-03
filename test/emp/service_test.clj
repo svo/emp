@@ -1,5 +1,6 @@
 (ns emp.service-test
-  (:require [io.pedestal.test :refer :all]
+  (:require [emp.core :as core]
+            [io.pedestal.test :refer :all]
             [io.pedestal.http :as bootstrap]
             [emp.service :as service]
             [ring.util.response :as ring-response])
@@ -15,14 +16,17 @@
     "should return version"
     (#'service/version ..request..) => ..result..
     (provided
-      (ring-response/response "0.0.1-SNAPSHOT") => ..result..)))
+      (core/version) => ..version..
+      (ring-response/response ..version..) => ..result..)))
 
 (facts
   "version route"
 
   (fact
     "should have expected version"
-    (:body (response-for service :get "/version")) => "0.0.1-SNAPSHOT")
+    (:body (response-for service :get "/version")) => "..version.."
+    (provided
+      (core/version) => ..version..))
 
   (fact
     "should have expected headers"
