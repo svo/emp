@@ -18,3 +18,4 @@ build:
     - java -version
     - ./pre-commit.sh
     - mv report.xml shippable/testresults
+    - mv target/coverage/coverage.xml shippable/codecoverage/coverage.xml
