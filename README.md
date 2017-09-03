@@ -44,6 +44,14 @@ To run tests and generate reports:
 
 `./pre-commit.sh`
 
+## Running the application
+
+1. `vagrant up`
+2. `vagrant ssh`
+3. `lein run-dev`
+
+Navigate to [vagrant-emp.local:8080](http://vagrant-emp.local:8080/version) if you have `MDNS` support.
+
 ## Local Continuous Integration
 
 Navigate to [vagrant-emp-ci.local:8080](http://vagrant-emp-ci.local:8080) if you have `MDNS` support.
