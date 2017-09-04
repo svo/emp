@@ -7,18 +7,22 @@
 
   (fact
     "should have first name"
-    (:first_name (->Person "..first_name.." anything)) => "..first_name..")
+    (:first_name (->Person ..first_name.. anything)) => ..first_name..)
 
   (fact
     "should have last name"
-    (:last_name (->Person "anything" ..last_name..)) => ..last_name..))
+    (:last_name (->Person anything ..last_name..)) => ..last_name..))
 
 (fact
   "should get person"
   (person/create "..first_name.."
-                 ..last_name..) => (->Person "..first_name.."
-                                             ..last_name..))
+                 "..last_name..") => (->Person "..first_name.."
+                                               "..last_name.."))
 
 (fact
   "should error if first name is not a string"
-  (person/create ..first_name.. anything) => (throws AssertionError))
+  (person/create ..first_name.. "anything") => (throws AssertionError))
+
+(fact
+  "should error if last name is not a string"
+  (person/create "anything" ..last_name..) => (throws AssertionError))
