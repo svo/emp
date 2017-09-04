@@ -61,3 +61,4 @@ Navigate to [vagrant-emp-ci.local:8080](http://vagrant-emp-ci.local:8080) if you
 * [Clojure](https://clojure.org)
 * [Leiningen](http://leiningen.org)
 * [Midje](https://github.com/marick/Midje)
+* [Pedestal](https://github.com/pedestal/pedestal)
