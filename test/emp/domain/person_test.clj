@@ -12,3 +12,9 @@
   (fact
     "should have last name"
     (:last_name (->Person anything ..last_name..)) => ..last_name..))
+
+(fact
+  "should get person"
+  (person/create ..first_name..
+                 ..last_name..) => (->Person ..first_name..
+                                             ..last_name..))
