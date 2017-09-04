@@ -1,0 +1,28 @@
+@startuml
+class PersonalDetails #LightGrey {
+  first_name:String
+  last_name:String
+}
+
+class Employee #LightGrey {
+  personal_details:PersonalDetails
+  annual_salary:Integer
+  super_rate:Integer
+}
+
+class Payslip #LightGrey {
+  employee:Employee
+  payment_start_date:Date
+  gross_income: Integer
+  income_tax: Integer
+  net_income: Integer
+  super: Integer
+}
+
+PersonalDetails --* Employee
+Employee --* Payslip
+
+hide PersonalDetails circle
+hide Employee circle
+hide Payslip circle
+@enduml
