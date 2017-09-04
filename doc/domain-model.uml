@@ -1,4 +1,7 @@
 @startuml
+
+left to right direction
+
 class PersonalDetails #LightGrey {
   first_name:String
   last_name:String

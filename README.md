@@ -13,10 +13,13 @@ git clone --recursive git@github.com:svo/emp.git
 
 * using [Clojure](https://clojure.org/)
 	* used on most recent project so using here for familiarity
+	* structs seem sufficient i.e. no strict requirement for objects
 
 ## Assumptions
 
 * incremental delivery to allow for feedback and demonstrate work patterns and processes is acceptable
+* annual salary(positive integer) is dollar figure i.e. no cents
+* reading of "payment start date" in requirements reflects desire to be able to add date other than first of the month
 
 ## Development environment
 
@@ -55,6 +58,11 @@ Navigate to [vagrant-emp.local:8080](http://vagrant-emp.local:8080/version) if y
 ## Local Continuous Integration
 
 Navigate to [vagrant-emp-ci.local:8080](http://vagrant-emp-ci.local:8080) if you have `MDNS` support.
+
+## Design
+
+### Domain Model
+![enter image description here](https://github.com/svo/emp/blob/master/doc/domain-model.png?raw=true)
 
 ## Links
 
