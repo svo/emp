@@ -6,5 +6,7 @@
 
 (defn create
   [person annual_salary]
-  {:pre [(instance? Person person)]}
+  {:pre [(instance? Person person)
+         (integer? annual_salary)
+         (pos? annual_salary)]}
   (->Employee person annual_salary))
