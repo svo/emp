@@ -3,7 +3,17 @@
   (:import [emp.domain.employee Employee]
            [org.joda.time DateTime]))
 
-(defrecord Payslip [employee payment_start_date])
+(def ^:const MONTHS_IN_YEAR 12)
+
+(defprotocol PayslipCalculator
+  (gross-income [this]))
+
+(defrecord Payslip [employee payment_start_date]
+  PayslipCalculator
+  (gross-income
+    [this]
+    (/ (bigint (:annual_salary employee))
+       MONTHS_IN_YEAR)))
 
 (defn create
   [employee payment_start_date]

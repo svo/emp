@@ -19,7 +19,12 @@
     (let [payment_start_date (date-time/now)]
       (:payment_start_date
         (->Payslip anything
-                   payment_start_date)) => payment_start_date)))
+                   payment_start_date)) => payment_start_date))
+  (fact
+    "should calculate gross income"
+    (let [employee (map->Employee {:annual_salary 60000})]
+      (.gross-income (->Payslip employee
+                                anything)) => 5000)))
 
 (fact
   "should create payslip"
