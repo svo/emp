@@ -24,7 +24,19 @@
     "should calculate gross income"
     (let [employee (map->Employee {:annual_salary 60000})]
       (.gross-income (->Payslip employee
-                                anything)) => 5000)))
+                                anything)) => 5000))
+
+  (fact
+    "should round down gross income"
+    (let [employee (map->Employee {:annual_salary 60050})]
+      (.gross-income (->Payslip employee
+                                anything)) => 5004))
+
+  (fact
+    "should round up gross income"
+    (let [employee (map->Employee {:annual_salary 60174})]
+      (.gross-income (->Payslip employee
+                                anything)) => 5015)))
 
 (fact
   "should create payslip"

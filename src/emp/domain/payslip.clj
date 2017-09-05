@@ -12,8 +12,7 @@
   PayslipCalculator
   (gross-income
     [this]
-    (/ (bigint (:annual_salary employee))
-       MONTHS_IN_YEAR)))
+    (Math/round (float (/ (:annual_salary employee) MONTHS_IN_YEAR)))))
 
 (defn create
   [employee payment_start_date]
