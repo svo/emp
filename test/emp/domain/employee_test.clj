@@ -1,7 +1,7 @@
 (ns emp.domain.employee-test
   (:require [emp.domain.employee :as employee :refer [->Employee]]
             [emp.domain.person :refer [map->Person]])
-  (:use [midje.sweet :only [facts fact => throws anything]]))
+  (:use [midje.sweet :only [facts fact => throws anything provided]]))
 
 (facts
   "record"
@@ -34,11 +34,20 @@
                    1) => (throws AssertionError))
 
 (fact
-  "should error if annual salary is not an integer"
-  (employee/create (map->Person {})
-                   ..annual_salary..) => (throws AssertionError))
+  "should be a valid annual salary"
+  (#'employee/valid-annual-salary? 1) => true)
 
 (fact
-  "should error if annual salary is not positive"
+  "should not be a valid annual salary if not an integer"
+  (#'employee/valid-annual-salary? ..value..) => false)
+
+(fact
+  "should not be a valid annual salary if not positive integer"
+  (#'employee/valid-annual-salary? -1) => false)
+
+(fact
+  "should error if annual salary is not valid"
   (employee/create (map->Person {})
-                   -1) => (throws AssertionError))
+                   ..annual_salary..) => (throws AssertionError)
+  (provided
+    (#'employee/valid-annual-salary? ..annual_salary..) => false))

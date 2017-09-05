@@ -4,9 +4,13 @@
 
 (defrecord Employee [person annual_salary])
 
+(defn- valid-annual-salary?
+  [annual_salary]
+  (and (integer? annual_salary)
+       (pos? annual_salary)))
+
 (defn create
   [person annual_salary]
   {:pre [(instance? Person person)
-         (integer? annual_salary)
-         (pos? annual_salary)]}
+         (valid-annual-salary? annual_salary)]}
   (->Employee person annual_salary))
