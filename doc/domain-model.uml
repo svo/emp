@@ -3,23 +3,23 @@
 left to right direction
 
 class PersonalDetails #LightGrey {
-  first_name:String
-  last_name:String
+  String first_name
+  String last_name
 }
 
 class Employee #LightGrey {
-  personal_details:PersonalDetails
-  annual_salary:Integer
-  super_rate:Integer
+  PersonalDetails personal_details
+  Integer annual_salary
+  Integer super_rate
 }
 
 class Payslip #LightGrey {
-  employee:Employee
-  payment_start_date:Date
-  gross_income: Integer
-  income_tax: Integer
-  net_income: Integer
-  super: Integer
+  Employee employee
+  Date payment_start_date
+  Integer gross-income()
+  Integer income-tax()
+  Integer net-income()
+  Integer super()
 }
 
 PersonalDetails --* Employee
