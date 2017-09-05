@@ -23,6 +23,8 @@
       with_items:
       - git
       - thinBackup
+      - ansicolor
+      - cobertura
       notify:
       - Restart Jenkins
 
