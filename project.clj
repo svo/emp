@@ -7,7 +7,8 @@
                   :exclusions [org.slf4j/slf4j-api]]
                  [org.slf4j/jul-to-slf4j "1.7.25"]
                  [org.slf4j/jcl-over-slf4j "1.7.25"]
-                 [org.slf4j/log4j-over-slf4j "1.7.25"]]
+                 [org.slf4j/log4j-over-slf4j "1.7.25"]
+                 [clj-time "0.14.0"]]
 
   :min-lein-version "2.0.0"
   :pedantic? :abort
@@ -40,7 +41,9 @@
               :dependencies [[org.clojure/tools.cli "0.3.5"]
                              [midje "1.8.3"]
                              [io.pedestal/pedestal.service-tools "0.5.2"]
-                             [midje-junit-formatter "0.1.0-SNAPSHOT"]]}
+                             [midje-junit-formatter "0.1.0-SNAPSHOT"]
+                             [cljito "0.2.1"]
+                             [org.mockito/mockito-all "1.10.19"]]}
              :quality [:dev
                        {:injections [(require 'midje.config)
                                      (midje.config/change-defaults
