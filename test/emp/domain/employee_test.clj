@@ -39,7 +39,7 @@
 
 (fact
   "should not be a valid annual salary if not an integer"
-  (#'employee/valid-annual-salary? ..value..) => false)
+  (#'employee/valid-annual-salary? ..coconuts..) => false)
 
 (fact
   "should not be a valid annual salary if not positive integer"

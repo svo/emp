@@ -1,8 +1,7 @@
 (ns emp.domain.payslip-test
   (:require [emp.domain.payslip :as payslip :refer [->MonthPayslip]]
-            [emp.domain.employee :refer [map->Employee]]
-            [clj-time.core :as date-time])
-  (:import [org.joda.time DateTime])
+            [emp.domain.employee :refer [map->Employee]])
+  (:import [java.time Month])
   (:use [midje.sweet :only [facts fact => throws anything]]))
 
 (facts
@@ -15,11 +14,11 @@
                                  anything)) => employee))
 
   (fact
-    "should have payment start date"
-    (let [payment_start_date (date-time/now)]
-      (:payment_start_date
+    "should have payment month"
+    (let [payment_month (Month/APRIL)]
+      (:payment_month
         (->MonthPayslip anything
-                        payment_start_date)) => payment_start_date))
+                        payment_month)) => payment_month))
   (fact
     "should calculate gross income"
     (let [employee (map->Employee {:annual_salary 60000})]
@@ -41,18 +40,18 @@
 (fact
   "should create payslip"
   (let [employee (map->Employee {})
-        payment_start_date (date-time/now)]
+        payment_month (Month/APRIL)]
     (payslip/create
       employee
-      payment_start_date) => (->MonthPayslip employee
-                                             payment_start_date)))
+      payment_month) => (->MonthPayslip employee
+                                        payment_month)))
 
 (fact
   "should error if employee is not an Employee"
   (payslip/create ..employee..
-                  (date-time/now)) => (throws AssertionError))
+                  (Month/APRIL)) => (throws AssertionError))
 
 (fact
-  "should error if payment start date is not a DateTime"
+  "should error if payment month is not a Month"
   (payslip/create (map->Employee {})
-                  ..date_time..) => (throws AssertionError))
+                  ..coconuts..) => (throws AssertionError))

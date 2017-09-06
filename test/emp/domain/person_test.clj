@@ -21,8 +21,8 @@
 
 (fact
   "should error if first name is not a string"
-  (person/create ..first_name.. "anything") => (throws AssertionError))
+  (person/create ..coconuts.. "anything") => (throws AssertionError))
 
 (fact
   "should error if last name is not a string"
-  (person/create "anything" ..last_name..) => (throws AssertionError))
+  (person/create "anything" ..coconuts..) => (throws AssertionError))
