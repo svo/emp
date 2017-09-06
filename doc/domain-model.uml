@@ -16,6 +16,7 @@ class Employee #LightGrey {
 class Payslip #LightGrey {
   Employee employee
   Date payment_start_date
+  Date payment_end_date
   Integer gross-income()
   Integer income-tax()
   Integer net-income()
