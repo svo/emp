@@ -1,7 +1,7 @@
 (ns emp.domain.payslip
   (:require [emp.domain.employee :as employee])
   (:import [emp.domain.employee Employee]
-           [java.time Month]))
+           [java.time Year Month]))
 
 (def ^:const MONTHS_IN_YEAR 12)
 
@@ -17,5 +17,6 @@
 (defn create
   [employee payment_month payment_year]
   {:pre [(instance? Employee employee)
-         (instance? Month payment_month)]}
+         (instance? Month payment_month)
+         (instance? Year payment_year)]}
   (->MonthPayslip employee payment_month payment_year))

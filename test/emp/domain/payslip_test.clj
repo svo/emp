@@ -1,7 +1,7 @@
 (ns emp.domain.payslip-test
   (:require [emp.domain.payslip :as payslip :refer [->MonthPayslip]]
             [emp.domain.employee :refer [map->Employee]])
-  (:import [java.time Month])
+  (:import [java.time Year Month])
   (:use [midje.sweet :only [facts fact => throws anything]]))
 
 (facts
@@ -51,22 +51,29 @@
 (fact
   "should create payslip"
   (let [employee (map->Employee {})
-        payment_month (Month/APRIL)]
+        payment_month (Month/APRIL)
+        payment_year (Year/of 2017)]
     (payslip/create
       employee
       payment_month
-      ..payment_year..) => (->MonthPayslip employee
-                                           payment_month
-                                           ..payment_year..)))
+      payment_year) => (->MonthPayslip employee
+                                       payment_month
+                                       payment_year)))
 
 (fact
   "should error if employee is not an Employee"
   (payslip/create ..coconuts..
                   (Month/APRIL)
-                  ..payment_year..) => (throws AssertionError))
+                  (Year/of 2017)) => (throws AssertionError))
 
 (fact
   "should error if payment month is not a Month"
   (payslip/create (map->Employee {})
                   ..coconuts..
-                  ..payment_year..) => (throws AssertionError))
+                  (Year/of 2017)) => (throws AssertionError))
+
+(fact
+  "should error if payment year is not a Year"
+  (payslip/create (map->Employee {})
+                  (Month/APRIL)
+                  ..coconuts..) => (throws AssertionError))
