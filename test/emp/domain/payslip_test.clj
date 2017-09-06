@@ -9,32 +9,43 @@
 
   (fact
     "should have employee"
-    (let [employee (map->Employee {})]
-      (:employee (->MonthPayslip employee
-                                 anything)) => employee))
+    (:employee (->MonthPayslip ..employee..
+                               anything
+                               anything)) => ..employee..)
 
   (fact
     "should have payment month"
-    (let [payment_month (Month/APRIL)]
-      (:payment_month
-        (->MonthPayslip anything
-                        payment_month)) => payment_month))
+    (:payment_month
+      (->MonthPayslip anything
+                      ..payment_month..
+                      anything)) => ..payment_month..)
+
+  (fact
+    "should have payment year"
+    (:payment_year
+      (->MonthPayslip anything
+                      anything
+                      ..payment_year..)) => ..payment_year..)
+
   (fact
     "should calculate gross income"
     (let [employee (map->Employee {:annual_salary 60000})]
       (.gross-income (->MonthPayslip employee
+                                     anything
                                      anything)) => 5000))
 
   (fact
     "should round down gross income"
     (let [employee (map->Employee {:annual_salary 60050})]
       (.gross-income (->MonthPayslip employee
+                                     anything
                                      anything)) => 5004))
 
   (fact
     "should round up gross income"
     (let [employee (map->Employee {:annual_salary 60174})]
       (.gross-income (->MonthPayslip employee
+                                     anything
                                      anything)) => 5015)))
 
 (fact
@@ -43,15 +54,19 @@
         payment_month (Month/APRIL)]
     (payslip/create
       employee
-      payment_month) => (->MonthPayslip employee
-                                        payment_month)))
+      payment_month
+      ..payment_year..) => (->MonthPayslip employee
+                                           payment_month
+                                           ..payment_year..)))
 
 (fact
   "should error if employee is not an Employee"
-  (payslip/create ..employee..
-                  (Month/APRIL)) => (throws AssertionError))
+  (payslip/create ..coconuts..
+                  (Month/APRIL)
+                  ..payment_year..) => (throws AssertionError))
 
 (fact
   "should error if payment month is not a Month"
   (payslip/create (map->Employee {})
-                  ..coconuts..) => (throws AssertionError))
+                  ..coconuts..
+                  ..payment_year..) => (throws AssertionError))

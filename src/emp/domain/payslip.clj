@@ -8,14 +8,14 @@
 (defprotocol payslip
   (gross-income [this]))
 
-(defrecord MonthPayslip [employee payment_month]
+(defrecord MonthPayslip [employee payment_month payment_year]
   payslip
   (gross-income
     [this]
     (Math/round (float (/ (:annual_salary employee) MONTHS_IN_YEAR)))))
 
 (defn create
-  [employee payment_month]
+  [employee payment_month payment_year]
   {:pre [(instance? Employee employee)
          (instance? Month payment_month)]}
-  (->MonthPayslip employee payment_month))
+  (->MonthPayslip employee payment_month payment_year))
