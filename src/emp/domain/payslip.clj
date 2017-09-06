@@ -5,11 +5,11 @@
 
 (def ^:const MONTHS_IN_YEAR 12)
 
-(defprotocol PayslipCalculator
+(defprotocol payslip
   (gross-income [this]))
 
-(defrecord Payslip [employee payment_start_date]
-  PayslipCalculator
+(defrecord MonthPayslip [employee payment_start_date]
+  payslip
   (gross-income
     [this]
     (Math/round (float (/ (:annual_salary employee) MONTHS_IN_YEAR)))))
@@ -18,4 +18,4 @@
   [employee payment_start_date]
   {:pre [(instance? Employee employee)
          (instance? DateTime payment_start_date)]}
-  (->Payslip employee payment_start_date))
+  (->MonthPayslip employee payment_start_date))

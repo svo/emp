@@ -1,5 +1,5 @@
 (ns emp.domain.payslip-test
-  (:require [emp.domain.payslip :as payslip :refer [->Payslip]]
+  (:require [emp.domain.payslip :as payslip :refer [->MonthPayslip]]
             [emp.domain.employee :refer [map->Employee]]
             [clj-time.core :as date-time])
   (:import [org.joda.time DateTime])
@@ -11,32 +11,32 @@
   (fact
     "should have employee"
     (let [employee (map->Employee {})]
-      (:employee (->Payslip employee
-                            anything)) => employee))
+      (:employee (->MonthPayslip employee
+                                 anything)) => employee))
 
   (fact
     "should have payment start date"
     (let [payment_start_date (date-time/now)]
       (:payment_start_date
-        (->Payslip anything
-                   payment_start_date)) => payment_start_date))
+        (->MonthPayslip anything
+                        payment_start_date)) => payment_start_date))
   (fact
     "should calculate gross income"
     (let [employee (map->Employee {:annual_salary 60000})]
-      (.gross-income (->Payslip employee
-                                anything)) => 5000))
+      (.gross-income (->MonthPayslip employee
+                                     anything)) => 5000))
 
   (fact
     "should round down gross income"
     (let [employee (map->Employee {:annual_salary 60050})]
-      (.gross-income (->Payslip employee
-                                anything)) => 5004))
+      (.gross-income (->MonthPayslip employee
+                                     anything)) => 5004))
 
   (fact
     "should round up gross income"
     (let [employee (map->Employee {:annual_salary 60174})]
-      (.gross-income (->Payslip employee
-                                anything)) => 5015)))
+      (.gross-income (->MonthPayslip employee
+                                     anything)) => 5015)))
 
 (fact
   "should create payslip"
@@ -44,8 +44,8 @@
         payment_start_date (date-time/now)]
     (payslip/create
       employee
-      payment_start_date) => (->Payslip employee
-                                        payment_start_date)))
+      payment_start_date) => (->MonthPayslip employee
+                                             payment_start_date)))
 
 (fact
   "should error if employee is not an Employee"
