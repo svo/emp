@@ -3,8 +3,9 @@
             [io.pedestal.test :refer :all]
             [io.pedestal.http :as bootstrap]
             [emp.service :as service]
-            [ring.util.response :as ring-response])
-  (:use [midje.sweet :only [facts fact => contains]]))
+            [ring.util.response :as ring-response]
+            [emp.route.handler.payslip :as payslip])
+  (:use [midje.sweet :only [facts fact => contains anything]]))
 
 (def service
   (::bootstrap/service-fn (bootstrap/create-servlet service/service)))
@@ -35,3 +36,16 @@
                   service
                   :get
                   "/version")) => (contains headers))))
+
+(facts
+  "payslip route"
+
+  (fact
+    "should handle post request"
+    (let [headers {"Location" "/payslip/..id.."}]
+      (:headers (response-for
+                  service
+                  :post
+                  "/payslip")) => (contains headers)
+      (provided
+        (payslip/post anything) => {:id ..id..}))))
