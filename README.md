@@ -62,7 +62,10 @@ Navigate to [vagrant-emp-ci.local:8080](http://vagrant-emp-ci.local:8080) if you
 ## Design
 
 ### Domain Model
-![enter image description here](https://github.com/svo/emp/blob/master/doc/domain-model.png?raw=true)
+![domain model](https://github.com/svo/emp/blob/master/doc/domain-model.png?raw=true)
+
+### API Contracts
+![api contracts](http://htmlpreview.github.io/?https://raw.githubusercontent.com/svo/emp-contract/master/api.html)
 
 ## Links
 
