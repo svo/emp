@@ -43,7 +43,11 @@
                              [io.pedestal/pedestal.service-tools "0.5.2"]
                              [midje-junit-formatter "0.1.0-SNAPSHOT"]
                              [cljito "0.2.1"]
-                             [org.mockito/mockito-all "1.10.19"]]}
+                             [org.mockito/mockito-all "1.10.19"]
+                             [guru.nidi.raml/raml-tester "0.9.1"]
+                             [org.springframework/spring-test "4.3.10.RELEASE"]
+                             [org.springframework/spring-web "4.3.10.RELEASE"]
+                             [javax.ws.rs/javax.ws.rs-api "2.1"]]}
              :quality [:dev
                        {:injections [(require 'midje.config)
                                      (midje.config/change-defaults

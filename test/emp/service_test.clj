@@ -2,10 +2,20 @@
   (:require [emp.core :as core]
             [io.pedestal.test :refer :all]
             [io.pedestal.http :as bootstrap]
+            [io.pedestal.http :as http-server]
             [emp.service :as service]
+            [emp.server :as server]
             [ring.util.response :as ring-response]
             [emp.route.handler.payslip :as payslip])
-  (:use [midje.sweet :only [facts fact => contains anything]]))
+  (:use [midje.sweet :only [facts
+                            fact
+                            =>
+                            contains
+                            anything
+                            against-background]])
+  (:import [guru.nidi.ramltester RamlLoaders]
+           [org.apache.http.client.methods HttpPost]
+           [org.apache.http.entity StringEntity]))
 
 (def service
   (::bootstrap/service-fn (bootstrap/create-servlet service/service)))
@@ -49,3 +59,26 @@
                   "/payslip")) => (contains headers)
       (provided
         (payslip/post anything) => {:id ..id..}))))
+
+(facts
+  :contracts
+  "contracts"
+
+  (against-background
+    [(before :contents (future (http-server/start server/runnable-service)))
+     (after :contents (http-server/stop server/runnable-service))]
+
+    (fact
+      "should match post request contract"
+      (let [api (.load (RamlLoaders/fromGithub "svo" "emp-contract") "api.raml")
+            http_client (.createHttpClient api)
+            http_post (HttpPost. "http://localhost:8080/payslip")
+            entity (StringEntity. "{\"first_name\": \"Sean\",
+                                  \"last_name\": \"Van Osselaer\",
+                                  \"annual_salary\": 175000,
+                                  \"year\": 2017,
+                                  \"month\": \"APRIL\"}")]
+        (.setEntity http_post entity)
+        (.setHeader http_post "Content-type" "application/json")
+        (.execute http_client http_post)
+        (.isEmpty (.getLastReport http_client)) => true))))
