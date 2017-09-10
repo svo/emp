@@ -28,6 +28,24 @@
                       anything)) => ..payment_year..)
 
   (fact
+    "should get payment start day"
+    (.payment-start-day (->MonthPayslip anything
+                                        anything
+                                        anything)) => 1)
+
+  (fact
+    "should get payment end day"
+    (.payment-end-day (->MonthPayslip anything
+                                        (Year/of 2017)
+                                        (Month/FEBRUARY))) => 28)
+
+  (fact
+    "should get payment end day for leap year"
+    (.payment-end-day (->MonthPayslip anything
+                                        (Year/of 2016)
+                                        (Month/FEBRUARY))) => 29)
+
+  (fact
     "should calculate gross income"
     (let [employee (map->Employee {:annual_salary 60000})]
       (.gross-income (->MonthPayslip employee
