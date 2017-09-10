@@ -28,7 +28,8 @@
       (provided
         (generator/path ..identifier..) => ..path..
         (pdf
-          [[:paragraph start_day_line]
+          [{}
+           [:paragraph start_day_line]
            [:paragraph end_day_line]
            [:paragraph gross_income_line]]
           ..path..) => ..result..))))

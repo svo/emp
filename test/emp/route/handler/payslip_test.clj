@@ -2,8 +2,9 @@
   (:require [emp.route.handler.payslip :as payslip]
             [emp.domain.person :as person]
             [emp.domain.employee :as employee]
-            [emp.domain.payslip :as payslip-data])
-  (:use [midje.sweet :only [facts fact => provided]])
+            [emp.domain.payslip :as payslip-data]
+            [emp.application.pdf-generator :as pdf-generator])
+  (:use [midje.sweet :only [facts fact => provided irrelevant]])
   (:import [java.time Year Month]))
 
 (facts
@@ -14,7 +15,8 @@
     (let [year 2017
           year_of (Year/of year)
           month "APRIL"
-          month_of (Month/valueOf month)]
+          month_of (Month/valueOf month)
+          payslip {:identifier ..uuid..}]
       (payslip/post {:json-params {:first_name ..first_name..
                                    :last_name ..last_name..
                                    :annual_salary ..annual_salary..
@@ -27,4 +29,5 @@
                          ..annual_salary..) => ..employee..
         (payslip-data/create ..employee..
                              year_of
-                             month_of) => {:identifier ..uuid..}))))
+                             month_of) => payslip
+        (pdf-generator/generate payslip) => irrelevant))))

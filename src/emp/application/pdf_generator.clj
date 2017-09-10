@@ -8,7 +8,8 @@
 (defn generate
   [payslip]
   (pdf
-    [[:paragraph (str "Start Day: " (.payment-start-day payslip))]
+    [{}
+     [:paragraph (str "Start Day: " (.payment-start-day payslip))]
      [:paragraph (str "End Day: " (.payment-end-day payslip))]
      [:paragraph (str "Gross Income: $" (.gross-income payslip))]]
     (path (.identifier payslip))))

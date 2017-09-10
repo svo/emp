@@ -37,3 +37,4 @@ repl-port
 # Builds
 out/
 build/
+*.pdf
