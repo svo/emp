@@ -10,7 +10,7 @@
 
   (fact
     "should have identifier"
-    (:identifier (->MonthPayslip ..identifier..
+    (.identifier (->MonthPayslip ..identifier..
                                  anything
                                  anything
                                  anything)) => ..identifier..)

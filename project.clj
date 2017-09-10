@@ -9,7 +9,8 @@
                  [org.slf4j/jcl-over-slf4j "1.7.25"]
                  [org.slf4j/log4j-over-slf4j "1.7.25"]
                  [danlentz/clj-uuid "0.1.7"]
-                 [lein-environ "1.1.0"]]
+                 [lein-environ "1.1.0"]
+                 [clj-pdf "2.2.29"]]
 
   :min-lein-version "2.0.0"
   :pedantic? :abort
@@ -42,12 +43,15 @@
               :dependencies [[org.clojure/tools.cli "0.3.5"]
                              [midje "1.8.3"]
                              [io.pedestal/pedestal.service-tools "0.5.2"]
-                             [midje-junit-formatter "0.1.0-SNAPSHOT"]
+                             [midje-junit-formatter "0.1.0-SNAPSHOT"
+                              :exclusions [commons-logging]]
                              [cljito "0.2.1"]
                              [org.mockito/mockito-all "1.10.19"]
                              [guru.nidi.raml/raml-tester "0.9.1"]
-                             [org.springframework/spring-test "4.3.10.RELEASE"]
-                             [org.springframework/spring-web "4.3.10.RELEASE"]
+                             [org.springframework/spring-test "4.3.10.RELEASE"
+                              :exclusions [commons-logging]]
+                             [org.springframework/spring-web "4.3.10.RELEASE"
+                              :exclusions [commons-logging]]
                              [javax.ws.rs/javax.ws.rs-api "2.1"]]}
              :quality [:dev
                        {:injections [(require 'midje.config)

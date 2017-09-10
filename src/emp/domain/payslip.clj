@@ -7,12 +7,16 @@
 (def ^:const MONTHS_IN_YEAR 12)
 
 (defprotocol Payslip
+  (identifier [this])
   (payment-start-day [this])
   (payment-end-day [this])
   (gross-income [this]))
 
 (defrecord MonthPayslip [identifier employee payment_year payment_month]
   Payslip
+  (identifier
+    [this]
+    identifier)
   (gross-income
     [this]
     (Math/round (float (/ (:annual_salary employee) MONTHS_IN_YEAR))))
