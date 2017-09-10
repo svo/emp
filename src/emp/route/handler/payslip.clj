@@ -1,6 +1,5 @@
 (ns emp.route.handler.payslip
   (:require [ring.util.response :as response]
-            [clj-uuid :as uuid]
             [emp.domain.person :as person]
             [emp.domain.employee :as employee]
             [emp.domain.payslip :as payslip-data])
@@ -15,4 +14,4 @@
         payslip_data (payslip-data/create employee
                                           (Year/of (:year json))
                                           (Month/valueOf(:month json)))]
-    {:id (uuid/v1)}))
+    {:id (:identifier payslip_data)}))

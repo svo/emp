@@ -1,6 +1,5 @@
 (ns emp.route.handler.payslip-test
   (:require [emp.route.handler.payslip :as payslip]
-            [clj-uuid :as uuid]
             [emp.domain.person :as person]
             [emp.domain.employee :as employee]
             [emp.domain.payslip :as payslip-data])
@@ -22,11 +21,10 @@
                                    :year year
                                    :month month}}) => {:id ..uuid..}
       (provided
-        (uuid/v1) => ..uuid..
         (person/create ..first_name..
                        ..last_name..) => ..person..
         (employee/create ..person..
                          ..annual_salary..) => ..employee..
         (payslip-data/create ..employee..
                              year_of
-                             month_of) => ..payslip_data..))))
+                             month_of) => {:identifier ..uuid..}))))
