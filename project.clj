@@ -8,7 +8,8 @@
                  [org.slf4j/jul-to-slf4j "1.7.25"]
                  [org.slf4j/jcl-over-slf4j "1.7.25"]
                  [org.slf4j/log4j-over-slf4j "1.7.25"]
-                 [danlentz/clj-uuid "0.1.7"]]
+                 [danlentz/clj-uuid "0.1.7"]
+                 [lein-environ "1.1.0"]]
 
   :min-lein-version "2.0.0"
   :pedantic? :abort

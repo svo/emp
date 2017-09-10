@@ -6,7 +6,8 @@
             [emp.service :as service]
             [emp.server :as server]
             [ring.util.response :as ring-response]
-            [emp.route.handler.payslip :as payslip])
+            [emp.route.handler.payslip :as payslip]
+            [environ.core :as environ])
   (:use [midje.sweet :only [facts
                             fact
                             =>
@@ -19,6 +20,27 @@
 
 (def service
   (::bootstrap/service-fn (bootstrap/create-servlet service/service)))
+
+(facts
+  "should default to 8080 port"
+
+  (fact
+    "when environment variable absent"
+    (service/port) => 8080
+    (provided
+      (environ/env :port) => nil))
+
+  (fact
+    "when environment variable empty string"
+    (service/port) => 8080
+    (provided
+      (environ/env :port) => "")))
+
+(fact
+  "should use environment variable port when provided"
+  (service/port) => 8081
+  (provided
+    (environ/env :port) => "8081"))
 
 (facts
   "handlers"
@@ -72,7 +94,9 @@
       "should match post request contract"
       (let [api (.load (RamlLoaders/fromGithub "svo" "emp-contract") "api.raml")
             http_client (.createHttpClient api)
-            http_post (HttpPost. "http://localhost:8080/payslip")
+            http_post (HttpPost. (str "http://localhost:"
+                                      (service/port)
+                                      "/payslip"))
             entity (StringEntity. "{\"first_name\": \"Sean\",
                                   \"last_name\": \"Van Osselaer\",
                                   \"annual_salary\": 175000,
