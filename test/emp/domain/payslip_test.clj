@@ -17,15 +17,15 @@
     "should have payment month"
     (:payment_month
       (->MonthPayslip anything
-                      ..payment_month..
-                      anything)) => ..payment_month..)
+                      anything
+                      ..payment_month..)) => ..payment_month..)
 
   (fact
     "should have payment year"
     (:payment_year
       (->MonthPayslip anything
-                      anything
-                      ..payment_year..)) => ..payment_year..)
+                      ..payment_year..
+                      anything)) => ..payment_year..)
 
   (fact
     "should calculate gross income"
@@ -51,29 +51,29 @@
 (fact
   "should create payslip"
   (let [employee (map->Employee {})
-        payment_month (Month/APRIL)
-        payment_year (Year/of 2017)]
+        payment_year (Year/of 2017)
+        payment_month (Month/APRIL)]
     (payslip/create
       employee
-      payment_month
-      payment_year) => (->MonthPayslip employee
-                                       payment_month
-                                       payment_year)))
+      payment_year
+      payment_month) => (->MonthPayslip employee
+                                        payment_year
+                                        payment_month)))
 
 (fact
   "should error if employee is not an Employee"
   (payslip/create ..coconuts..
-                  (Month/APRIL)
-                  (Year/of 2017)) => (throws AssertionError))
+                  (Year/of 2017)
+                  (Month/APRIL)) => (throws AssertionError))
 
 (fact
   "should error if payment month is not a Month"
   (payslip/create (map->Employee {})
-                  ..coconuts..
-                  (Year/of 2017)) => (throws AssertionError))
+                  (Year/of 2017)
+                  ..coconuts..) => (throws AssertionError))
 
 (fact
   "should error if payment year is not a Year"
   (payslip/create (map->Employee {})
-                  (Month/APRIL)
-                  ..coconuts..) => (throws AssertionError))
+                  ..coconuts..
+                  (Month/APRIL)) => (throws AssertionError))
