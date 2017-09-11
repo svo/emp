@@ -18,14 +18,16 @@
     (payment-start-day [this] ..start_day..)
     (payment-end-day [this] ..end_day..)
     (gross-income [this] ..gross_income..)
-    (income-tax [this] ..income_tax..))
+    (income-tax [this] ..income_tax..)
+    (net-income [this] ..net_income..))
 
   (fact
     "should get generated"
     (let [start_day_line (str "Start Day: " ..start_day..)
           end_day_line (str "End Day: " ..end_day..)
           gross_income_line (str "Gross Income: $" ..gross_income..)
-          income_tax_line (str "Income Tax: $" ..income_tax..)]
+          income_tax_line (str "Income Tax: $" ..income_tax..)
+          net_income_line (str "Net Income: $" ..net_income..)]
       (generator/generate (->TestPayslip)) => ..result..
       (provided
         (generator/path ..identifier..) => ..path..
@@ -34,5 +36,6 @@
            [:paragraph start_day_line]
            [:paragraph end_day_line]
            [:paragraph gross_income_line]
-           [:paragraph income_tax_line]]
+           [:paragraph income_tax_line]
+           [:paragraph net_income_line]]
           ..path..) => ..result..))))
