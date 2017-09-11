@@ -14,12 +14,15 @@ git clone --recursive git@github.com:svo/emp.git
 * using [Clojure](https://clojure.org/)
 	* used on most recent project so using here for familiarity
 	* structs seem sufficient i.e. no strict requirement for objects
+* implementing behaviour over `HTTP` to support browser `UI` to demonstrate competency
+* using `HTTP` over message bus for simplicity
 
 ## Assumptions
 
 * incremental delivery to allow for feedback and demonstrate work patterns and processes is acceptable
 * annual salary(positive integer) is dollar figure i.e. no cents
 * reading of "payment start date" in requirements reflects desire to be able to add date other than first of the month
+* "But feel free to use any format you want" in requirements line "Here is the csv input and output format we provide. (But feel free to use any format you want)" allows for `HTTP` with browser `UI` delivery
 
 ## Development environment
 
@@ -65,7 +68,9 @@ Navigate to [vagrant-emp-ci.local:8080](http://vagrant-emp-ci.local:8080) if you
 ![domain model](https://github.com/svo/emp/blob/master/doc/domain-model.png?raw=true)
 
 ### API Contracts
-![api contracts](http://htmlpreview.github.io/?https://github.com/svo/emp-contract/blob/master/api.html)
+
+* [Repository](https://github.com/svo/emp-contract)
+* [Api Contracts HTML](http://htmlpreview.github.io/?https://github.com/svo/emp-contract/blob/master/api.html)
 
 ## Links
 
