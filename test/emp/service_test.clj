@@ -7,6 +7,7 @@
             [emp.server :as server]
             [ring.util.response :as ring-response]
             [emp.route.handler.payslip :as payslip]
+            [emp.application.pdf-generator :as pdf-generator]
             [environ.core :as environ])
   (:use [midje.sweet :only [facts
                             fact
@@ -15,7 +16,7 @@
                             anything
                             against-background]])
   (:import [guru.nidi.ramltester RamlLoaders]
-           [org.apache.http.client.methods HttpPost]
+           [org.apache.http.client.methods HttpPost HttpGet]
            [org.apache.http.entity StringEntity]))
 
 (def service
@@ -80,7 +81,20 @@
                   :post
                   "/payslip")) => (contains headers)
       (provided
-        (payslip/post anything) => {:id ..id..}))))
+        (payslip/post anything) => {:id ..id..})))
+
+  (fact
+    "should handle get request"
+    (:status
+      (response-for
+        service
+        :get
+        "/payslip/identifier")) => 200
+    (provided
+      (pdf-generator/path "identifier") => ..path..
+      (ring-response/file-response ..path..) => {:body ""
+                                                 :headers {}
+                                                 :status 200})))
 
 (facts
   :contracts
@@ -90,8 +104,10 @@
     [(before :contents (future (http-server/start server/runnable-service)))
      (after :contents (http-server/stop server/runnable-service))]
 
+    (def id (atom ""))
+
     (fact
-      "should match post request contract"
+      "should match POST request contract"
       (let [api (.load (RamlLoaders/fromGithub "svo" "emp-contract") "api.raml")
             http_client (.createHttpClient api)
             http_post (HttpPost. (str "http://localhost:"
@@ -104,5 +120,20 @@
                                   \"month\": \"APRIL\"}")]
         (.setEntity http_post entity)
         (.setHeader http_post "Content-type" "application/json")
-        (.execute http_client http_post)
+        (reset! id (last (clojure.string/split
+                           (.getValue
+                             (first (.getHeaders
+                                      (.execute http_client
+                                                http_post) "Location"))) #"/")))
+        (.isEmpty (.getLastReport http_client)) => true))
+
+    (fact
+      "should match GET request contract"
+      (let [api (.load (RamlLoaders/fromGithub "svo" "emp-contract") "api.raml")
+            http_client (.createHttpClient api)
+            http_get (HttpGet. (str "http://localhost:"
+                                    (service/port)
+                                    "/payslip/"
+                                    @id))]
+        (.execute http_client http_get)
         (.isEmpty (.getLastReport http_client)) => true))))

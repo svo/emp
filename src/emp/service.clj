@@ -5,7 +5,8 @@
             [io.pedestal.http.body-params :as body-params]
             [ring.util.response :as ring-response]
             [emp.route.handler.payslip :as payslip]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]]
+            [emp.application.pdf-generator :as pdf-generator]))
 
 (def ^:const DEFAULT_PORT 8080)
 
@@ -17,6 +18,11 @@
   [request]
   (ring-response/created (str "/payslip/" (:id (payslip/post request)))))
 
+(defn- payslip-get
+  [request]
+  (ring-response/file-response
+    (pdf-generator/path (:identifier (:path-params request)))))
+
 (defn port
   []
   (let [environment_port (env :port)]
@@ -27,7 +33,10 @@
 (def common-interceptors [(body-params/body-params) http/html-body])
 
 (def routes #{["/version" :get (conj common-interceptors `version)]
-              ["/payslip" :post (conj common-interceptors `payslip-post)]})
+              ["/payslip" :post (conj common-interceptors `payslip-post)]
+              ["/payslip/:identifier"
+               :get
+               (conj common-interceptors `payslip-get)]})
 
 (def service {:env :prod
               ::http/routes routes

@@ -6,7 +6,9 @@ lein do clean, deps
 
 lein ancient
 
-PORT=8081 MIDJE_COLORIZE=NONE lein test
+export PORT=8081
+
+MIDJE_COLORIZE=NONE lein test
 unit=$?
 echo_result "Unit Tests" $unit
 
