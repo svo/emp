@@ -81,30 +81,65 @@
       (.gross-income (->MonthPayslip anything
                                      employee
                                      anything
-                                     anything)) => 5015)))
+                                     anything)) => 5015))
+
+
+  (fact
+    "should have income tax"
+    (let [income_tax 5000
+          employee (map->Employee {:annual_salary ..annual_salary..})]
+      (.income-tax (->MonthPayslip anything
+                                   employee
+                                   anything
+                                   anything)) => income_tax
+      (provided
+        (#'payslip/calculate-income-tax
+          ..annual_salary..) => (double income_tax))))
+
+  (fact
+    "should round down income tax"
+    (let [income_tax 5001.49
+          employee (map->Employee {:annual_salary ..annual_salary..})]
+      (.income-tax (->MonthPayslip anything
+                                   employee
+                                   anything
+                                   anything)) => 5001
+      (provided
+        (#'payslip/calculate-income-tax ..annual_salary..) => income_tax)))
+
+  (fact
+    "should round up income tax"
+    (let [income_tax 921.9375
+          employee (map->Employee {:annual_salary ..annual_salary..})]
+      (.income-tax (->MonthPayslip anything
+                                   employee
+                                   anything
+                                   anything)) => 922
+      (provided
+        (#'payslip/calculate-income-tax ..annual_salary..) => income_tax))))
 
 (facts
   "income tax"
 
   (fact
     "should be nil for 0 - $18,200"
-    (#'payslip/income-tax 18200) => nil)
+    (#'payslip/calculate-income-tax 18200) => nil)
 
   (fact
     "18,201 - 37,000 19c for each $1 over $18,200"
-    (#'payslip/income-tax 18201) => (/ 0.19 12))
+    (#'payslip/calculate-income-tax 18201) => (/ 0.19 12))
 
   (fact
     "$37,001 - $80,000 $3,572 plus 32.5c for each $1 over $37,000"
-    (#'payslip/income-tax 60050) => 921.9375)
+    (#'payslip/calculate-income-tax 60050) => 921.9375)
 
   (fact
     "$80,001 - $180,000 $17,547 plus 37c for each $1 over $80,000"
-    (#'payslip/income-tax 80001) => (/ 17547.37 12))
+    (#'payslip/calculate-income-tax 80001) => (/ 17547.37 12))
 
   (fact
     "$180,001 and over $54,547 plus 45c for each $1 over $180,000"
-    (#'payslip/income-tax 180001) => (/ 54547.45 12)))
+    (#'payslip/calculate-income-tax 180001) => (/ 54547.45 12)))
 
 (fact
   "should create payslip"

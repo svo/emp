@@ -10,19 +10,20 @@
   (identifier [this])
   (payment-start-day [this])
   (payment-end-day [this])
-  (gross-income [this]))
+  (gross-income [this])
+  (income-tax [this]))
 
-(defn- income-tax
+(defn- calculate-income-tax
   ([annual_salary]
    (cond
      (< 180000 annual_salary)
-     (income-tax annual_salary 54547 0.45 180000)
+     (calculate-income-tax annual_salary 54547 0.45 180000)
      (< 80000 annual_salary)
-     (income-tax annual_salary 17547 0.37 80000)
+     (calculate-income-tax annual_salary 17547 0.37 80000)
      (< 37000 annual_salary)
-     (income-tax annual_salary 3572 0.325 37000)
+     (calculate-income-tax annual_salary 3572 0.325 37000)
      (< 18200 annual_salary)
-     (income-tax annual_salary 0 0.19 18200)))
+     (calculate-income-tax annual_salary 0 0.19 18200)))
   ([annual_salary flat_sum cents_per_dollar dollars_over]
    (double (/ (+ flat_sum
                 (* (- annual_salary dollars_over) cents_per_dollar))
@@ -36,6 +37,9 @@
   (gross-income
     [this]
     (Math/round (double (/ (:annual_salary employee) MONTHS_IN_YEAR))))
+  (income-tax
+    [this]
+    (Math/round (calculate-income-tax (:annual_salary employee))))
   (payment-start-day
     [this]
     1)
