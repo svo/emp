@@ -15,13 +15,18 @@
 (defn- income-tax
   ([annual_salary]
    (cond
-     (< 37001 annual_salary)
+     (< 37000 annual_salary)
      (income-tax annual_salary
                  3572
                  0.325
-                 37000)))
+                 37000)
+     (< 18200 annual_salary)
+     (income-tax annual_salary
+                 0
+                 0.19
+                 18200)))
   ([annual_salary flat_sum cents_per_dollar dollars_over]
-   (float (/ (+ flat_sum
+   (double (/ (+ flat_sum
                 (* (- annual_salary dollars_over) cents_per_dollar))
              12))))
 
@@ -32,7 +37,7 @@
     identifier)
   (gross-income
     [this]
-    (Math/round (float (/ (:annual_salary employee) MONTHS_IN_YEAR))))
+    (Math/round (double (/ (:annual_salary employee) MONTHS_IN_YEAR))))
   (payment-start-day
     [this]
     1)

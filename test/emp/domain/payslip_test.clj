@@ -91,6 +91,10 @@
     (#'payslip/income-tax 18200) => nil)
 
   (fact
+    "18,201 - 37,000 19c for each $1 over $18,200"
+    (#'payslip/income-tax 18201) => (/ 0.19 12))
+
+  (fact
     "$37,001 - $80,000 $3,572 plus 32.5c for each $1 over $37,000"
     (#'payslip/income-tax 60050) => 921.9375))
 
