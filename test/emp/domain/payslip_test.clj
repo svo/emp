@@ -83,6 +83,17 @@
                                      anything
                                      anything)) => 5015)))
 
+(facts
+  "income tax"
+
+  (fact
+    "should be nil for 0 - $18,200"
+    (#'payslip/income-tax 18200) => nil)
+
+  (fact
+    "$37,001 - $80,000 $3,572 plus 32.5c for each $1 over $37,000"
+    (#'payslip/income-tax 60050) => 921.9375))
+
 (fact
   "should create payslip"
   (let [employee (map->Employee {})

@@ -12,6 +12,19 @@
   (payment-end-day [this])
   (gross-income [this]))
 
+(defn- income-tax
+  ([annual_salary]
+   (cond
+     (< 37001 annual_salary)
+     (income-tax annual_salary
+                 3572
+                 0.325
+                 37000)))
+  ([annual_salary flat_sum cents_per_dollar dollars_over]
+   (float (/ (+ flat_sum
+                (* (- annual_salary dollars_over) cents_per_dollar))
+             12))))
+
 (defrecord MonthPayslip [identifier employee payment_year payment_month]
   Payslip
   (identifier
