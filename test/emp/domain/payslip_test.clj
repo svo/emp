@@ -83,6 +83,16 @@
                                      anything
                                      anything)) => 5015))
 
+  (fact
+    "should calculate net income"
+    (let [annual_salary 60050
+          employee (map->Employee {:annual_salary annual_salary})]
+      (.net-income (->MonthPayslip anything
+                                   employee
+                                   anything
+                                   anything)) => 4082
+      (provided
+        (#'payslip/calculate-income-tax annual_salary) => 921.9375)))
 
   (fact
     "should have income tax"

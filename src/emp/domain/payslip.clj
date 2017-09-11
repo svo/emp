@@ -11,7 +11,8 @@
   (payment-start-day [this])
   (payment-end-day [this])
   (gross-income [this])
-  (income-tax [this]))
+  (income-tax [this])
+  (net-income [this]))
 
 (defn- calculate-income-tax
   ([annual_salary]
@@ -40,6 +41,9 @@
   (income-tax
     [this]
     (Math/round (calculate-income-tax (:annual_salary employee))))
+  (net-income
+    [this]
+    (- (.gross-income this) (.income-tax this)))
   (payment-start-day
     [this]
     1)
