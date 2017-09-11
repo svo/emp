@@ -100,7 +100,11 @@
 
   (fact
     "$80,001 - $180,000 $17,547 plus 37c for each $1 over $80,000"
-    (#'payslip/income-tax 80001) => (/ 17547.37 12)))
+    (#'payslip/income-tax 80001) => (/ 17547.37 12))
+
+  (fact
+    "$180,001 and over $54,547 plus 45c for each $1 over $180,000"
+    (#'payslip/income-tax 180001) => (/ 54547.45 12)))
 
 (fact
   "should create payslip"
