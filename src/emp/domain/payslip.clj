@@ -15,6 +15,11 @@
 (defn- income-tax
   ([annual_salary]
    (cond
+     (< 80000 annual_salary)
+     (income-tax annual_salary
+                 17547
+                 0.37
+                 80000)
      (< 37000 annual_salary)
      (income-tax annual_salary
                  3572
