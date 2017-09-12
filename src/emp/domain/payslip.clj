@@ -13,7 +13,8 @@
   (payment-end-day [this])
   (gross-income [this])
   (income-tax [this])
-  (net-income [this]))
+  (net-income [this])
+  (super [this]))
 
 (defn- calculate-income-tax
   ([annual_salary]
@@ -50,6 +51,9 @@
   (net-income
     [this]
     (- (.gross-income this) (.income-tax this)))
+  (super
+    [this]
+    (Math/round (* (.gross-income this) (/ (:super_rate employee) 100.0))))
   (payment-start-day
     [this]
     1)

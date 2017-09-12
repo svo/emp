@@ -107,6 +107,16 @@
         (#'payslip/calculate-income-tax annual_salary) => 921.9375)))
 
   (fact
+    "should calculate super"
+    (let [annual_salary 60050
+          employee (map->Employee {:annual_salary annual_salary
+                                   :super_rate 9})]
+      (.super (->MonthPayslip anything
+                              employee
+                              anything
+                              anything)) => 450))
+
+  (fact
     "should have income tax"
     (let [income_tax 5000
           employee (map->Employee {:annual_salary ..annual_salary..})]
