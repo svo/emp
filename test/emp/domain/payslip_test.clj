@@ -28,10 +28,11 @@
     (let [person (map->Person {:first_name ..first_name..
                                :last_name ..last_name..})
           employee (map->Employee {:person person})]
-      (.employee-name (->MonthPayslip anything
-                                      employee
-                                      anything
-                                      anything)) => "..first_name.. ..last_name.."))
+      (.employee-name (->MonthPayslip
+                        anything
+                        employee
+                        anything
+                        anything)) => "..first_name.. ..last_name.."))
 
   (fact
     "should have payment month"

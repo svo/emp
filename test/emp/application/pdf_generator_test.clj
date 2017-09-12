@@ -15,6 +15,7 @@
   (defrecord-openly TestPayslip []
     payslip/Payslip
     (identifier [this] ..identifier..)
+    (employee-name [this] ..employee..)
     (payment-start-day [this] ..start_day..)
     (payment-end-day [this] ..end_day..)
     (gross-income [this] ..gross_income..)
@@ -23,7 +24,8 @@
 
   (fact
     "should get generated"
-    (let [start_day_line (str "Start Day: " ..start_day..)
+    (let [employee_line (str "Employee: " ..employee..)
+          start_day_line (str "Start Day: " ..start_day..)
           end_day_line (str "End Day: " ..end_day..)
           gross_income_line (str "Gross Income: $" ..gross_income..)
           income_tax_line (str "Income Tax: $" ..income_tax..)
@@ -33,6 +35,7 @@
         (generator/path ..identifier..) => ..path..
         (pdf
           [{}
+           [:paragraph employee_line]
            [:paragraph start_day_line]
            [:paragraph end_day_line]
            [:paragraph gross_income_line]
