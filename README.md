@@ -54,6 +54,7 @@ To run tests and generate reports:
 
 1. `vagrant up`
 2. `vagrant ssh`
+3. `cd /vagrant`
 3. `lein run-dev`
 
 Navigate to [vagrant-emp.local:8080](http://vagrant-emp.local:8080/version) if you have `MDNS` support.
