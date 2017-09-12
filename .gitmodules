@@ -10,3 +10,6 @@
 [submodule "ansible/roles/environment-jenkins"]
 	path = ansible/roles/environment-jenkins
 	url = git@github.com:svo/environment-jenkins.git
+[submodule "ansible/roles/environment-docker"]
+	path = ansible/roles/environment-docker
+	url = git@github.com:svo/environment-docker.git

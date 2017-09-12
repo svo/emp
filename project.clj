@@ -9,7 +9,7 @@
                  [org.slf4j/jcl-over-slf4j "1.7.25"]
                  [org.slf4j/log4j-over-slf4j "1.7.25"]
                  [danlentz/clj-uuid "0.1.7"]
-                 [lein-environ "1.1.0"]
+                 [environ "1.1.0"]
                  [clj-pdf "2.2.29"]]
 
   :min-lein-version "2.0.0"
@@ -17,7 +17,29 @@
 
   :resource-paths ["config", "resources"]
 
-  :plugins [[info.sunng/lein-bootclasspath-deps "0.2.0"]]
+  :plugins [[info.sunng/lein-bootclasspath-deps "0.2.0"]
+            [lein-environ "1.1.0"]
+            [com.palletops/uberimage "0.4.1"
+             :exclusions [org.clojure/clojure
+                          com.fasterxml.jackson.core/jackson-annotations
+                          commons-logging
+                          com.fasterxml.jackson.core/jackson-databind
+                          com.fasterxml.jackson.core/jackson-core]]]
+
+  :uberimage {:base-image "openjdk:8-jre-alpine"
+              :instructions ["WORKDIR /" "EXPOSE 8080 1099"]
+              :cmd ["/usr/bin/java"
+                    "-XX:+PrintGCDetails"
+                    "-XX:+PrintGCDateStamps"
+                    "-XX:+PrintGCTimeStamps"
+                    "-Xloggc:gc.log"
+                    "-Dcom.sun.management.jmxremote.port=1099"
+                    "-Dcom.sun.management.jmxremote.authenticate=false"
+                    "-Dcom.sun.management.jmxremote.ssl=false"
+                    "-jar" "/uberjar.jar"]
+              :tag ~(str "svanosselaer/emp:"
+                         (or (System/getenv "TAG")
+                             "latest"))}
 
   :java-agents [[org.mortbay.jetty.alpn/jetty-alpn-agent "2.0.6"]]
 
@@ -48,9 +70,9 @@
                              [cljito "0.2.1"]
                              [org.mockito/mockito-all "1.10.19"]
                              [guru.nidi.raml/raml-tester "0.9.1"]
-                             [org.springframework/spring-test "4.3.10.RELEASE"
+                             [org.springframework/spring-test "4.3.11.RELEASE"
                               :exclusions [commons-logging]]
-                             [org.springframework/spring-web "4.3.10.RELEASE"
+                             [org.springframework/spring-web "4.3.11.RELEASE"
                               :exclusions [commons-logging]]
                              [javax.ws.rs/javax.ws.rs-api "2.1"]]}
              :quality [:dev
@@ -69,6 +91,7 @@
                                   [lein-kibit "0.1.5"
                                    :exclusions [org.clojure/clojure
                                                 org.clojure/tools.cli
+                                                org.clojure/tools.reader
                                                 org.clojure/tools.namespace]]]
                         :dependencies [[org.clojure/tools.namespace
                                         "0.2.11"]]}]
