@@ -8,6 +8,7 @@
 
 (defprotocol Payslip
   (identifier [this])
+  (employee-name [this])
   (payment-start-day [this])
   (payment-end-day [this])
   (gross-income [this])
@@ -35,6 +36,11 @@
   (identifier
     [this]
     identifier)
+  (employee-name
+    [this]
+    (str (get-in employee [:person :first_name])
+         " "
+         (get-in employee [:person :last_name])))
   (gross-income
     [this]
     (Math/round (double (/ (:annual_salary employee) MONTHS_IN_YEAR))))
