@@ -16,6 +16,8 @@
     payslip/Payslip
     (identifier [this] ..identifier..)
     (employee-name [this] ..employee..)
+    (payment-year [this] ..year..)
+    (payment-month [this] ..month..)
     (payment-start-day [this] ..start_day..)
     (payment-end-day [this] ..end_day..)
     (gross-income [this] ..gross_income..)
@@ -26,6 +28,8 @@
   (fact
     "should get generated"
     (let [employee_line (str "Employee: " ..employee..)
+          year_line (str "Year: " ..year..)
+          month_line (str "Month: " ..month..)
           start_day_line (str "Start Day: " ..start_day..)
           end_day_line (str "End Day: " ..end_day..)
           gross_income_line (str "Gross Income: $" ..gross_income..)
@@ -38,6 +42,8 @@
         (pdf
           [{}
            [:paragraph employee_line]
+           [:paragraph year_line]
+           [:paragraph month_line]
            [:paragraph start_day_line]
            [:paragraph end_day_line]
            [:paragraph gross_income_line]
