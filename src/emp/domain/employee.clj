@@ -21,5 +21,6 @@
 (defn create
   [person annual_salary super_rate]
   {:pre [(instance? Person person)
-         (valid-annual-salary? annual_salary)]}
+         (valid-annual-salary? annual_salary)
+         (valid-super-rate? super_rate)]}
   (->Employee person annual_salary super_rate))
