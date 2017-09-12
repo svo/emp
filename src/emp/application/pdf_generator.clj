@@ -14,5 +14,6 @@
      [:paragraph (str "End Day: " (.payment-end-day payslip))]
      [:paragraph (str "Gross Income: $" (.gross-income payslip))]
      [:paragraph (str "Income Tax: $" (.income-tax payslip))]
-     [:paragraph (str "Net Income: $" (.net-income payslip))]]
+     [:paragraph (str "Net Income: $" (.net-income payslip))]
+     [:paragraph (str "Super: $" (.super payslip))] ]
     (path (.identifier payslip))))
