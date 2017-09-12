@@ -57,6 +57,26 @@
   (#'employee/valid-annual-salary? -1) => false)
 
 (fact
+  "should report 0 as a valid super rate"
+  (#'employee/valid-super-rate? 0) => true)
+
+(fact
+  "should report 50 as a valid super rate"
+  (#'employee/valid-super-rate? 50) => true)
+
+(fact
+  "should report 51 as an invalid super rate"
+  (#'employee/valid-super-rate? 51) => false)
+
+(fact
+  "should report -1 as an invalid super rate"
+  (#'employee/valid-super-rate? -1) => false)
+
+(fact
+  "should report string as an invalid super rate"
+  (#'employee/valid-super-rate? "") => false)
+
+(fact
   "should error if annual salary is not valid"
   (employee/create (map->Person {})
                    ..annual_salary..
