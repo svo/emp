@@ -11,7 +11,9 @@
   (let [json (:json-params request)
         person (person/create (:first_name json)
                               (:last_name json))
-        employee (employee/create person (:annual_salary json))
+        employee (employee/create person
+                                  (:annual_salary json)
+                                  (:super_rate json))
         payslip_data (payslip-data/create employee
                                           (Year/of (:year json))
                                           (Month/valueOf(:month json)))]

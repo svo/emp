@@ -116,6 +116,7 @@
             entity (StringEntity. "{\"first_name\": \"Sean\",
                                   \"last_name\": \"Van Osselaer\",
                                   \"annual_salary\": 175000,
+                                  \"super_rate\": 9,
                                   \"year\": 2017,
                                   \"month\": \"APRIL\"}")]
         (.setEntity http_post entity)

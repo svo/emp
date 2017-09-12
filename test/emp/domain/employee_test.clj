@@ -8,16 +8,24 @@
 
   (fact
     "should have person"
-    (let [person (map->Person {})]
-      (:person (->Employee person
-                           anything)) => person))
+    (:person (->Employee ..person..
+                         anything
+                         anything)) => ..person..)
+
+  (fact
+    "should have annual salary"
+    (:annual_salary (->Employee
+                      anything
+                      ..annual_salary..
+                      anything)) => ..annual_salary..)
 
   (fact
     "should have annual salary"
     (let [person (map->Person {})]
-      (:annual_salary (->Employee
-                        person
-                        ..annual_salary..)) => ..annual_salary..)))
+      (:super_rate (->Employee
+                     person
+                     anything
+                     ..super_rate..)) => ..super_rate..)))
 
 (fact
   "should get employee"
@@ -25,13 +33,16 @@
         annual_salary 1]
     (employee/create
       person
-      annual_salary) => (->Employee person
-                                    annual_salary)))
+      annual_salary
+      ..super_rate..) => (->Employee person
+                                     annual_salary
+                                     ..super_rate..)))
 
 (fact
   "should error if person is not a Person"
   (employee/create ..person..
-                   1) => (throws AssertionError))
+                   1
+                   ..super_rate..) => (throws AssertionError))
 
 (fact
   "should be a valid annual salary"
@@ -48,6 +59,7 @@
 (fact
   "should error if annual salary is not valid"
   (employee/create (map->Person {})
-                   ..annual_salary..) => (throws AssertionError)
+                   ..annual_salary..
+                   ..super_rate..) => (throws AssertionError)
   (provided
     (#'employee/valid-annual-salary? ..annual_salary..) => false))

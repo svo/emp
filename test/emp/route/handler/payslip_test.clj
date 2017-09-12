@@ -20,13 +20,15 @@
       (payslip/post {:json-params {:first_name ..first_name..
                                    :last_name ..last_name..
                                    :annual_salary ..annual_salary..
+                                   :super_rate ..super_rate..
                                    :year year
                                    :month month}}) => {:id ..uuid..}
       (provided
         (person/create ..first_name..
                        ..last_name..) => ..person..
         (employee/create ..person..
-                         ..annual_salary..) => ..employee..
+                         ..annual_salary..
+                         ..super_rate..) => ..employee..
         (payslip-data/create ..employee..
                              year_of
                              month_of) => payslip
