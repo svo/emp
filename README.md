@@ -2,6 +2,8 @@
 
 * [Trello Board](https://trello.com/b/WoAzNyra/)
 * [Continuous Integration](https://app.shippable.com/github/svo/emp/dashboard)
+* [API Contracts](https://github.com/svo/emp-contract)
+* [Browser Client](https://github.com/svo/emp-browser)
 
 __NOTE:__ this project uses git submodules so you will want to clone recursively to have all expected behaviours.
 
@@ -70,7 +72,6 @@ Navigate to [vagrant-emp-ci.local:8080](http://vagrant-emp-ci.local:8080) if you
 
 ### API Contracts
 
-* [Repository](https://github.com/svo/emp-contract)
 * [Api Contracts HTML](http://htmlpreview.github.io/?https://github.com/svo/emp-contract/blob/master/api.html)
 
 ## Links
