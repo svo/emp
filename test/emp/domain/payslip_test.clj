@@ -58,6 +58,20 @@
                                         anything)) => 1)
 
   (fact
+    "should get payment year"
+    (.payment-year (->MonthPayslip anything
+                                   anything
+                                   ..year..
+                                   anything)) => (str ..year..))
+
+  (fact
+    "should get payment month"
+    (.payment-month (->MonthPayslip anything
+                                    anything
+                                    anything
+                                    ..month..)) => (str ..month..))
+
+  (fact
     "should get payment end day"
     (.payment-end-day (->MonthPayslip anything
                                       anything

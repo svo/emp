@@ -9,6 +9,8 @@
 (defprotocol Payslip
   (identifier [this])
   (employee-name [this])
+  (payment-year [this])
+  (payment-month [this])
   (payment-start-day [this])
   (payment-end-day [this])
   (gross-income [this])
@@ -54,6 +56,12 @@
   (super
     [this]
     (Math/round (* (.gross-income this) (/ (:super_rate employee) 100.0))))
+  (payment-year
+    [this]
+    (str payment_year))
+  (payment-month
+    [this]
+    (str payment_month))
   (payment-start-day
     [this]
     1)
