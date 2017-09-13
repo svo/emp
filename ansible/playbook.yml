@@ -7,3 +7,4 @@
     - environment-openjdk
     - environment-clojure
     - environment-docker
+    - .

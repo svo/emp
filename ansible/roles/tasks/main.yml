@@ -1,0 +1,13 @@
+
+    - name: Add vagrant user to user groups
+      user: name=vagrant groups={{ item }} append=yes
+      with_items:
+      - docker
+      - pcp
+      become: yes
+
+    - name: Enable docker REST API
+      lineinfile: dest=/etc/default/docker line='DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock --insecure-registry localhost:5000"'
+      notify:
+      - Restart docker
+      become: yes
