@@ -23,6 +23,7 @@ build:
     - mv target/coverage/coverage.xml shippable/codecoverage/coverage.xml
 
   post_ci:
+    - lein uberjar
     - docker build -t svanosselaer/emp:latest .
     - docker push svanosselaer/emp:latest
 
