@@ -4,6 +4,7 @@
 * [Continuous Integration](https://app.shippable.com/github/svo/emp/dashboard)
 * [API Contracts](https://github.com/svo/emp-contract)
 * [Browser Client](https://github.com/svo/emp-browser)
+* [Docker Hub](https://hub.docker.com/r/svanosselaer/emp)
 
 __NOTE:__ this project uses git submodules so you will want to clone recursively to have all expected behaviours.
 
