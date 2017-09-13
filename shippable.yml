@@ -21,3 +21,15 @@ build:
     - rm .midje.clj
     - mv report.xml shippable/testresults
     - mv target/coverage/coverage.xml shippable/codecoverage/coverage.xml
+
+  post_ci:
+    - lein uberimage
+    - docker push svanosselaer/emp:latest
+
+integrations:
+  hub:
+    - integrationName: hub.docker.com
+      type: docker
+      branches:
+        only:
+          - master
