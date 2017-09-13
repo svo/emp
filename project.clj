@@ -18,28 +18,7 @@
   :resource-paths ["config", "resources"]
 
   :plugins [[info.sunng/lein-bootclasspath-deps "0.2.0"]
-            [lein-environ "1.1.0"]
-            [com.palletops/uberimage "0.4.1"
-             :exclusions [org.clojure/clojure
-                          com.fasterxml.jackson.core/jackson-annotations
-                          commons-logging
-                          com.fasterxml.jackson.core/jackson-databind
-                          com.fasterxml.jackson.core/jackson-core]]]
-
-  :uberimage {:base-image "openjdk:8-jre-alpine"
-              :instructions ["WORKDIR /" "EXPOSE 8080 1099"]
-              :cmd ["/usr/bin/java"
-                    "-XX:+PrintGCDetails"
-                    "-XX:+PrintGCDateStamps"
-                    "-XX:+PrintGCTimeStamps"
-                    "-Xloggc:gc.log"
-                    "-Dcom.sun.management.jmxremote.port=1099"
-                    "-Dcom.sun.management.jmxremote.authenticate=false"
-                    "-Dcom.sun.management.jmxremote.ssl=false"
-                    "-jar" "/uberjar.jar"]
-              :tag ~(str "svanosselaer/emp:"
-                         (or (System/getenv "TAG")
-                             "latest"))}
+            [lein-environ "1.1.0"]]
 
   :java-agents [[org.mortbay.jetty.alpn/jetty-alpn-agent "2.0.6"]]
 
