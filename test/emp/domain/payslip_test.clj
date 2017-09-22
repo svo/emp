@@ -86,6 +86,22 @@
                                       (Month/FEBRUARY))) => 29)
 
   (fact
+    "should handle small gross income"
+    (let [employee (map->Employee {:annual_salary 1})]
+      (.gross-income (->MonthPayslip anything
+                                     employee
+                                     anything
+                                     anything)) => 0))
+
+  (fact
+    "should handle large gross income"
+    (let [employee (map->Employee {:annual_salary Integer/MAX_VALUE})]
+      (.gross-income (->MonthPayslip anything
+                                     employee
+                                     anything
+                                     anything)) => 178956971))
+
+  (fact
     "should calculate gross income"
     (let [employee (map->Employee {:annual_salary 60000})]
       (.gross-income (->MonthPayslip anything
@@ -131,6 +147,40 @@
                               anything)) => 450))
 
   (fact
+    "should calculate super with small salary"
+    (let [annual_salary 1
+          employee (map->Employee {:annual_salary annual_salary
+                                   :super_rate 9})]
+      (.super (->MonthPayslip anything
+                              employee
+                              anything
+                              anything)) => 0))
+
+(fact
+    "should handle small income tax"
+    (let [income_tax 1
+          employee (map->Employee {:annual_salary ..annual_salary..})]
+      (.income-tax (->MonthPayslip anything
+                                   employee
+                                   anything
+                                   anything)) => income_tax
+      (provided
+        (#'payslip/calculate-income-tax
+          ..annual_salary..) => (double income_tax))))
+
+(fact
+    "should handle lage income tax"
+    (let [income_tax Integer/MAX_VALUE
+          employee (map->Employee {:annual_salary ..annual_salary..})]
+      (.income-tax (->MonthPayslip anything
+                                   employee
+                                   anything
+                                   anything)) => income_tax
+      (provided
+        (#'payslip/calculate-income-tax
+          ..annual_salary..) => (double income_tax))))
+
+  (fact
     "should have income tax"
     (let [income_tax 5000
           employee (map->Employee {:annual_salary ..annual_salary..})]
@@ -168,8 +218,8 @@
   "income tax"
 
   (fact
-    "should be nil for 0 - $18,200"
-    (#'payslip/calculate-income-tax 18200) => nil)
+    "should be none for 0 - $18,200"
+    (#'payslip/calculate-income-tax 18200) => 0.0)
 
   (fact
     "18,201 - 37,000 19c for each $1 over $18,200"

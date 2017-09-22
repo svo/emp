@@ -28,7 +28,9 @@
      (< 37000 annual_salary)
      (calculate-income-tax annual_salary 3572 0.325 37000)
      (< 18200 annual_salary)
-     (calculate-income-tax annual_salary 0 0.19 18200)))
+     (calculate-income-tax annual_salary 0 0.19 18200)
+     :else
+     0.0))
   ([annual_salary flat_sum cents_per_dollar dollars_over]
    (double (/ (+ flat_sum
                 (* (- annual_salary dollars_over) cents_per_dollar))
