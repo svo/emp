@@ -5,6 +5,16 @@
 * [API Contracts](https://github.com/svo/emp-contract)
 * [Browser Client](https://github.com/svo/emp-browser)
 * [Docker Hub](https://hub.docker.com/r/svanosselaer/emp)
+* [AWS Provisioning/Deployment](https://github.com/svo/emp-aws)
+
+You can use the current version to create payslips online at [emp.qual.is](http://emp.qual.is)
+
+Enter the details into the form and click the _Create_ button. When the _PDF_ has been successfully created you can click the _Download_ button to download the _PDF_.
+
+Behaviour has been tested using:
+
+* Ubuntu Xenial
+* Google Chrome Version 61.0.3163.91
 
 __NOTE:__ this project uses git submodules so you will want to clone recursively to have all expected behaviours.
 
