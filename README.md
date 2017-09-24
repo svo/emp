@@ -42,8 +42,9 @@ git clone --recursive git@github.com:svo/emp.git
 
 * incremental delivery to allow for feedback and demonstrate work patterns and processes is acceptable
 * annual salary(positive integer) is dollar figure i.e. no cents
-* reading of "payment start date" in requirements reflects desire to be able to add date other than first of the month
-* "But feel free to use any format you want" in requirements allows for single payslips to be created via `HTTP` and browser `UI` i.e. `JSON` over `HTTP` rather than `CSV` via e.g. `CLI`.
+* do not need to support monetary values other than $ and can assume they will be within the range of an integer
+* reading of "payment start date" in requirements reflects desire to be able to add date other than first of the month, but examples are all for full month so focusing on that
+* "But feel free to use any format you want" in requirements allows for single payslips to be created via `HTTP` and browser `UI` i.e. `JSON` over `HTTP` rather than `CSV` via e.g. `CLI`
 
 ## Development environment
 
