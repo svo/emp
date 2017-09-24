@@ -1,13 +1,22 @@
 # EMP
 
 * [Trello Board](https://trello.com/b/WoAzNyra/)
-* [Continuous Integration](https://app.shippable.com/github/svo/emp/dashboard)
 * [API Contracts](https://github.com/svo/emp-contract)
 * [Browser Client](https://github.com/svo/emp-browser)
-* [Docker Hub](https://hub.docker.com/r/svanosselaer/emp)
 * [AWS Provisioning/Deployment](https://github.com/svo/emp-aws)
+* Continuous Integration
+  * [server](https://app.shippable.com/github/svo/emp/dashboard)
+  * [browser](https://app.shippable.com/github/svo/emp-browser/dashboard)
+  * [contracts](https://app.shippable.com/github/svo/emp-contract/dashboard)
+* Docker Hub
+  * [server](https://hub.docker.com/r/svanosselaer/emp)
+  * [browser](https://hub.docker.com/r/svanosselaer/emp-browser)
 
 You can use the current version to create payslips online at [emp.qual.is](http://emp.qual.is)
+
+You can use the current version locally by downloading [docker-compose.yml](https://raw.githubusercontent.com/svo/emp-aws/master/ansible/roles/files/docker-compose.yml) to a local directory, running `docker-compose up` from within that directory and browsing to [http://localhost](http://localhost).
+
+__NOTE:__ above assumes port 80 is available.
 
 Enter the details into the form and click the _Create_ button. When the _PDF_ has been successfully created you can click the _Download_ button to download the _PDF_.
 
@@ -26,8 +35,7 @@ git clone --recursive git@github.com:svo/emp.git
 
 * using [Clojure](https://clojure.org/)
 	* used on most recent project so using here for familiarity
-	* structs seem sufficient i.e. no strict requirement for objects
-* implementing behaviour over `HTTP` to support browser `UI` to demonstrate competency
+* implementing behaviour over `HTTP` with browser client for demonstration purposes
 * using `HTTP` over message bus for simplicity
 
 ## Assumptions
@@ -35,7 +43,7 @@ git clone --recursive git@github.com:svo/emp.git
 * incremental delivery to allow for feedback and demonstrate work patterns and processes is acceptable
 * annual salary(positive integer) is dollar figure i.e. no cents
 * reading of "payment start date" in requirements reflects desire to be able to add date other than first of the month
-* "But feel free to use any format you want" in requirements line "Here is the csv input and output format we provide. (But feel free to use any format you want)" allows for `HTTP` with browser `UI` delivery
+* "But feel free to use any format you want" in requirements allows for single payslips to be created via `HTTP` and browser `UI` i.e. `JSON` over `HTTP` rather than `CSV` via e.g. `CLI`.
 
 ## Development environment
 
