@@ -3,6 +3,7 @@
             [io.pedestal.http :as http]
             [io.pedestal.http.route :as route]
             [io.pedestal.http.body-params :as body-params]
+            [io.pedestal.interceptor.error :as error-interceptor]
             [ring.util.response :as ring-response]
             [emp.route.handler.payslip :as payslip]
             [environ.core :refer [env]]
@@ -32,11 +33,26 @@
 
 (def common-interceptors [(body-params/body-params) http/html-body])
 
+(def exception-interceptor
+  (assoc (error-interceptor/error-dispatch
+           [context exception]
+           [{:exception-type :java.lang.AssertionError}]
+           (assoc context :response {:status 400
+                                     :body (.getMessage exception)})
+           :else
+           (assoc context :io.pedestal.interceptor.chain/error exception))
+         :name
+         ::exception-interceptor))
+
 (def routes #{["/version" :get (conj common-interceptors `version)]
-              ["/payslip" :post (conj common-interceptors `payslip-post)]
+              ["/payslip" :post (conj common-interceptors
+                                      exception-interceptor
+                                      `payslip-post)]
               ["/payslip/:identifier"
                :get
-               (conj common-interceptors `payslip-get)]})
+               (conj common-interceptors
+                     exception-interceptor
+                     `payslip-get)]})
 
 (def service {:env :prod
               ::http/routes routes
