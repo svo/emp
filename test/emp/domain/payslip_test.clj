@@ -156,7 +156,7 @@
                               anything
                               anything)) => 0))
 
-(fact
+  (fact
     "should handle small income tax"
     (let [income_tax 1
           employee (map->Employee {:annual_salary ..annual_salary..})]
@@ -168,7 +168,7 @@
         (#'payslip/calculate-income-tax
           ..annual_salary..) => (double income_tax))))
 
-(fact
+  (fact
     "should handle lage income tax"
     (let [income_tax Integer/MAX_VALUE
           employee (map->Employee {:annual_salary ..annual_salary..})]
@@ -271,19 +271,24 @@
                   (Month/APRIL)) => (throws AssertionError))
 
 (fact
-  "should report as invalid date if JUNE 2012"
-  (#'payslip/valid-date? (Year/of 2012)
-                         (Month/JUNE)) => false)
+  "should report as invalid date if month before minimum for minimum year"
+  (#'payslip/invalid-date? (Year/of 2012)
+                           (Month/JUNE)) => true)
 
 (fact
-  "should report as valid date if JULY 2012"
-  (#'payslip/valid-date? (Year/of 2012)
-                         (Month/JULY)) => true)
+  "should report as valid date if first valid month"
+  (#'payslip/invalid-date? (Year/of 2012)
+                           (Month/JULY)) => false)
 
 (fact
-  "should report as valid date if JANUARY 2013"
-  (#'payslip/valid-date? (Year/of 2013)
-                         (Month/JANUARY)) => true)
+  "should report as valid date if year after minimum"
+  (#'payslip/invalid-date? (Year/of 2013)
+                           (Month/JANUARY)) => false)
+
+(fact
+  "should report as valid date if year before minimum"
+  (#'payslip/invalid-date? (Year/of 2011)
+                           (Month/OCTOBER)) => true)
 
 (fact
   "should error if payment date is before July 1st 2012"

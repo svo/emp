@@ -5,6 +5,7 @@
            [java.time Year Month]))
 
 (def ^:const MONTHS_IN_YEAR 12)
+(def ^:const MINIMUM_YEAR 2012)
 
 (defprotocol Payslip
   (identifier [this])
@@ -18,10 +19,13 @@
   (net-income [this])
   (super [this]))
 
-(defn- valid-date?
+(defn- invalid-date?
   [year month]
-  (not (and (.isBefore year (Year/of 2013))
-            (< (.getValue month) (.getValue (Month/JULY))))))
+  (or (and (= year (Year/of MINIMUM_YEAR))
+           (< (.getValue month) (.getValue (Month/JULY))))
+      (.isBefore year (Year/of MINIMUM_YEAR))))
+
+(def valid-date? (complement invalid-date?))
 
 (defn- calculate-income-tax
   ([annual_salary]
@@ -38,8 +42,8 @@
      0.0))
   ([annual_salary flat_sum cents_per_dollar dollars_over]
    (double (/ (+ flat_sum
-                (* (- annual_salary dollars_over) cents_per_dollar))
-             12))))
+                 (* (- annual_salary dollars_over) cents_per_dollar))
+              12))))
 
 (defrecord MonthPayslip [identifier employee payment_year payment_month]
   Payslip
