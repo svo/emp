@@ -269,3 +269,28 @@
   (payslip/create (map->Employee {})
                   ..coconuts..
                   (Month/APRIL)) => (throws AssertionError))
+
+(fact
+  "should report as invalid date if JUNE 2012"
+  (#'payslip/valid-date? (Year/of 2012)
+                         (Month/JUNE)) => false)
+
+(fact
+  "should report as valid date if JULY 2012"
+  (#'payslip/valid-date? (Year/of 2012)
+                         (Month/JULY)) => true)
+
+(fact
+  "should report as valid date if JANUARY 2013"
+  (#'payslip/valid-date? (Year/of 2013)
+                         (Month/JANUARY)) => true)
+
+(fact
+  "should error if payment date is before July 1st 2012"
+  (let [year (Year/of 2012)
+        month (Month/JUNE)]
+    (payslip/create (map->Employee {})
+                    year
+                    month) => (throws AssertionError)
+    (provided
+      (#'payslip/valid-date? year month) => false)))

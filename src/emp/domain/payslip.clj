@@ -18,6 +18,11 @@
   (net-income [this])
   (super [this]))
 
+(defn- valid-date?
+  [year month]
+  (not (and (.isBefore year (Year/of 2013))
+            (< (.getValue month) (.getValue (Month/JULY))))))
+
 (defn- calculate-income-tax
   ([annual_salary]
    (cond
@@ -75,5 +80,6 @@
   [employee payment_year payment_month]
   {:pre [(instance? Employee employee)
          (instance? Year payment_year)
-         (instance? Month payment_month)]}
+         (instance? Month payment_month)
+         (valid-date? payment_year payment_month)]}
   (->MonthPayslip (uuid/v1) employee payment_year payment_month))
