@@ -16,7 +16,12 @@
                       (.payment-start-day payslip)
                       " of "
                       (.payment-year payslip))]
-     [:paragraph (str "End Day: " (.payment-end-day payslip))]
+     [:paragraph (str "To Date: "
+                      (.payment-month payslip)
+                      " "
+                      (.payment-end-day payslip)
+                      " of "
+                      (.payment-year payslip))]
      [:paragraph (str "Gross Income: $" (.gross-income payslip))]
      [:paragraph (str "Income Tax: $" (.income-tax payslip))]
      [:paragraph (str "Net Income: $" (.net-income payslip))]

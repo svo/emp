@@ -34,7 +34,12 @@
                          ..start_day..
                          " of "
                          ..year..)
-          end_day_line (str "End Day: " ..end_day..)
+          end_day_line (str "To Date: "
+                            ..month..
+                            " "
+                            ..end_day..
+                            " of "
+                            ..year..)
           gross_income_line (str "Gross Income: $" ..gross_income..)
           income_tax_line (str "Income Tax: $" ..income_tax..)
           net_income_line (str "Net Income: $" ..net_income..)
