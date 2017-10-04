@@ -7,7 +7,7 @@
 
 (fact
   "should generate path"
-  (generator/path ..identifier..) => "..identifier...pdf")
+  (generator/path ..identifier..) => "/var/lib/emp/..identifier...pdf")
 
 (facts
   "PDF"

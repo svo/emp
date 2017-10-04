@@ -3,7 +3,7 @@
 
 (defn path
   [identifier]
-  (str identifier ".pdf"))
+  (str "/var/lib/emp/" identifier ".pdf"))
 
 (defn generate
   [payslip]

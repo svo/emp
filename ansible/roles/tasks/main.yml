@@ -1,4 +1,8 @@
 
+    - name: Create data directory
+      file: path=/var/lib/emp state=directory mode="u=rwx,g=rwx,o=rwx"
+      become: yes
+
     - name: Add vagrant user to user groups
       user: name=vagrant groups={{ item }} append=yes
       with_items:
