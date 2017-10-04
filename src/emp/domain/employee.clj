@@ -10,7 +10,8 @@
 (defn- valid-annual-salary?
   [annual_salary]
   (and (integer? annual_salary)
-       (pos? annual_salary)))
+       (pos? annual_salary)
+       (<= annual_salary Integer/MAX_VALUE)))
 
 (defn- valid-super-rate?
   [super_rate]

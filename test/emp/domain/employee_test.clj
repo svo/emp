@@ -64,6 +64,10 @@
   (#'employee/valid-annual-salary? ..coconuts..) => false)
 
 (fact
+  "should not be a valid annual salary is greater than max integer"
+  (#'employee/valid-annual-salary? (inc Integer/MAX_VALUE)) => false)
+
+(fact
   "should not be a valid annual salary if not positive integer"
   (#'employee/valid-annual-salary? -1) => false)
 
