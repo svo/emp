@@ -10,11 +10,12 @@
   (pdf
     [{}
      [:paragraph (str "Employee: " (.employee-name payslip))]
-     [:paragraph (str "Date: "
+     [:paragraph (str "From Date: "
                       (.payment-month payslip)
+                      " "
+                      (.payment-start-day payslip)
                       " of "
                       (.payment-year payslip))]
-     [:paragraph (str "Start Day: " (.payment-start-day payslip))]
      [:paragraph (str "End Day: " (.payment-end-day payslip))]
      [:paragraph (str "Gross Income: $" (.gross-income payslip))]
      [:paragraph (str "Income Tax: $" (.income-tax payslip))]

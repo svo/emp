@@ -28,8 +28,12 @@
   (fact
     "should get generated"
     (let [employee_line (str "Employee: " ..employee..)
-          date_line (str "Date: " ..month.. " of " ..year..)
-          start_day_line (str "Start Day: " ..start_day..)
+          date_line (str "From Date: "
+                         ..month..
+                         " "
+                         ..start_day..
+                         " of "
+                         ..year..)
           end_day_line (str "End Day: " ..end_day..)
           gross_income_line (str "Gross Income: $" ..gross_income..)
           income_tax_line (str "Income Tax: $" ..income_tax..)
@@ -42,7 +46,6 @@
           [{}
            [:paragraph employee_line]
            [:paragraph date_line]
-           [:paragraph start_day_line]
            [:paragraph end_day_line]
            [:paragraph gross_income_line]
            [:paragraph income_tax_line]
