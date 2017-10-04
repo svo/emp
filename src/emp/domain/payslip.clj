@@ -6,6 +6,24 @@
 
 (def ^:const MONTHS_IN_YEAR 12)
 (def ^:const MINIMUM_YEAR 2012)
+(def ^:const DEFAULT_START_DAY 1)
+(def ^:const BELOW_FIRST_BRACKET_TAX_RATE 0.0)
+(def ^:const FIRST_BRACKET 18200)
+(def ^:const FIRST_BRACKET_FLAT_SUM 0)
+(def ^:const FIRST_BRACKET_CENTS_PER_DOLLAR 0.19)
+(def ^:const FIRST_BRACKET_FOR_DOLLARS_OVER 18200)
+(def ^:const SECOND_BRACKET 37000)
+(def ^:const SECOND_BRACKET_FLAT_SUM 3572)
+(def ^:const SECOND_BRACKET_CENTS_PER_DOLLAR 0.325)
+(def ^:const SECOND_BRACKET_FOR_DOLLARS_OVER 37000)
+(def ^:const THIRD_BRACKET 80000)
+(def ^:const THIRD_BRACKET_FLAT_SUM 17547)
+(def ^:const THIRD_BRACKET_CENTS_PER_DOLLAR 0.37)
+(def ^:const THIRD_BRACKET_FOR_DOLLARS_OVER 80000)
+(def ^:const FOURTH_BRACKET 180000)
+(def ^:const FOURTH_BRACKET_FLAT_SUM 54547)
+(def ^:const FOURTH_BRACKET_CENTS_PER_DOLLAR 0.45)
+(def ^:const FOURTH_BRACKET_FOR_DOLLARS_OVER 180000)
 
 (defprotocol Payslip
   (identifier [this])
@@ -30,20 +48,33 @@
 (defn- calculate-income-tax
   ([annual_salary]
    (cond
-     (< 180000 annual_salary)
-     (calculate-income-tax annual_salary 54547 0.45 180000)
-     (< 80000 annual_salary)
-     (calculate-income-tax annual_salary 17547 0.37 80000)
-     (< 37000 annual_salary)
-     (calculate-income-tax annual_salary 3572 0.325 37000)
-     (< 18200 annual_salary)
-     (calculate-income-tax annual_salary 0 0.19 18200)
+     (< FOURTH_BRACKET annual_salary)
+     (calculate-income-tax annual_salary
+                           FOURTH_BRACKET_FLAT_SUM
+                           FOURTH_BRACKET_CENTS_PER_DOLLAR
+                           FOURTH_BRACKET_FOR_DOLLARS_OVER)
+     (< THIRD_BRACKET annual_salary)
+     (calculate-income-tax annual_salary
+                           THIRD_BRACKET_FLAT_SUM
+                           THIRD_BRACKET_CENTS_PER_DOLLAR
+                           THIRD_BRACKET_FOR_DOLLARS_OVER)
+     (< SECOND_BRACKET annual_salary)
+     (calculate-income-tax annual_salary
+                           SECOND_BRACKET_FLAT_SUM
+                           SECOND_BRACKET_CENTS_PER_DOLLAR
+                           SECOND_BRACKET_FOR_DOLLARS_OVER)
+     (< FIRST_BRACKET annual_salary)
+     (calculate-income-tax annual_salary
+                           FIRST_BRACKET_FLAT_SUM
+                           FIRST_BRACKET_CENTS_PER_DOLLAR
+                           FIRST_BRACKET_FOR_DOLLARS_OVER)
      :else
-     0.0))
+     BELOW_FIRST_BRACKET_TAX_RATE))
   ([annual_salary flat_sum cents_per_dollar dollars_over]
    (double (/ (+ flat_sum
-                 (* (- annual_salary dollars_over) cents_per_dollar))
-              12))))
+                 (* (- annual_salary dollars_over)
+                    cents_per_dollar))
+              MONTHS_IN_YEAR))))
 
 (defrecord MonthPayslip [identifier employee payment_year payment_month]
   Payslip
@@ -75,7 +106,7 @@
     (str payment_month))
   (payment-start-day
     [this]
-    1)
+    DEFAULT_START_DAY)
   (payment-end-day
     [this]
     (.length payment_month (.isLeap payment_year))))

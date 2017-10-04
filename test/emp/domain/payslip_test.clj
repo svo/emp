@@ -94,7 +94,7 @@
                                      anything)) => 0))
 
   (fact
-    "should handle large gross income"
+    "should handle max integer gross income"
     (let [employee (map->Employee {:annual_salary Integer/MAX_VALUE})]
       (.gross-income (->MonthPayslip anything
                                      employee
@@ -169,7 +169,7 @@
           ..annual_salary..) => (double income_tax))))
 
   (fact
-    "should handle lage income tax"
+    "should handle max integer income tax"
     (let [income_tax Integer/MAX_VALUE
           employee (map->Employee {:annual_salary ..annual_salary..})]
       (.income-tax (->MonthPayslip anything
