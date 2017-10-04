@@ -16,6 +16,7 @@ build:
 
   ci:
     - java -version
+    - mkdir -p /var/lib/emp
     - cp .midje.clj.ci .midje.clj
     - ./pre-commit.sh
     - rm .midje.clj
