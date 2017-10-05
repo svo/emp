@@ -38,7 +38,7 @@ __NOTE:__ this project uses git submodules so you will want to clone recursively
 git clone --recursive git@github.com:svo/emp.git
 ```
 
-## Context
+## Context On Candidate
 
 Consider myself a generalist but have been focused on server side development over the last few years. Have done a decent amount of Configuration Management and infrastructure work in the same period but have only done a small amount of front-end development (mostly on my own time).
 
@@ -61,6 +61,10 @@ Happy to implement any changes based on below if required by reviewer.
 	* communicated regular through the period of development
 * do not need to support currency symbols other than `$`
 * "But feel free to use any format you want" in requirements allows for single payslips to be created via `HTTP` and browser `UI` i.e. `JSON` over `HTTP` rather than `CSV` via e.g. `CLI`
+* `docker` containers and a `docker compose` configuration is an acceptable deliverable
+* no need to cater for legacy browsers or test with browsers other than `Google Chrome`
+* `PDF` is a suitable format for the generated payslip
+* no need to gold plate user experience or `PDF` layout for initial deliverable i.e. would iterate on designs based on feedback
 
 ## Design
 
@@ -92,6 +96,7 @@ To monitor tests as you edit the source code run the following from the `/vagran
 1. `lein repl`
 2. `(use 'midje.repl)`
 3. `(midje.repl/autotest)`
+	* or `(midje.repl/autotest :filter (complement :contracts))` to run without contract tests (iterate faster)
 
 To run tests and generate reports:
 
