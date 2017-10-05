@@ -47,18 +47,10 @@
   (fact
     "should get generated"
     (let [employee_line ..employee_line..
-          date_line (str "From Date: "
-                         ..month..
-                         " "
-                         ..start_day..
-                         " of "
-                         ..year..)
-          end_day_line (str "To Date: "
-                            ..month..
-                            " "
-                            ..end_day..
-                            " of "
-                            ..year..)
+          start_date (str ..month..  " " ..start_day.. " of " ..year..)
+          start_date_line ..start_date_line..
+          end_date (str ..month..  " " ..end_day.. " of " ..year..)
+          end_date_line ..end_date_line..
           gross_income_line ..gross_income_line..
           income_tax_line ..income_tax_line..
           net_income_line ..net_income_line..
@@ -67,6 +59,10 @@
       (provided
         (#'generator/paragraph generator/EMPLOYEE_LABEL
                                ..employee..) => ..employee_line..
+        (#'generator/paragraph generator/FROM_DATE_LABEL
+                               start_date) => start_date_line
+        (#'generator/paragraph generator/TO_DATE_LABEL
+                               end_date) => end_date_line
         (#'generator/currency-paragraph
           generator/GROSS_INCOME_LABEL
           ..gross_income..) => ..gross_income_line..
@@ -83,8 +79,8 @@
         (pdf
           [{}
            [:paragraph employee_line]
-           [:paragraph date_line]
-           [:paragraph end_day_line]
+           [:paragraph start_date_line]
+           [:paragraph end_date_line]
            [:paragraph gross_income_line]
            [:paragraph income_tax_line]
            [:paragraph net_income_line]

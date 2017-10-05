@@ -32,20 +32,18 @@
   (pdf
     [{}
      [:paragraph (paragraph EMPLOYEE_LABEL (.employee-name payslip))]
-     [:paragraph (str FROM_DATE_LABEL
-                      LABEL_POSTFIX
-                      (.payment-month payslip)
-                      " "
-                      (.payment-start-day payslip)
-                      " of "
-                      (.payment-year payslip))]
-     [:paragraph (str TO_DATE_LABEL
-                      LABEL_POSTFIX
-                      (.payment-month payslip)
-                      " "
-                      (.payment-end-day payslip)
-                      " of "
-                      (.payment-year payslip))]
+     [:paragraph (paragraph FROM_DATE_LABEL
+                            (str (.payment-month payslip)
+                                 " "
+                                 (.payment-start-day payslip)
+                                 " of "
+                                 (.payment-year payslip)))]
+     [:paragraph (paragraph TO_DATE_LABEL
+                            (str (.payment-month payslip)
+                                 " "
+                                 (.payment-end-day payslip)
+                                 " of "
+                                 (.payment-year payslip)))]
      [:paragraph (currency-paragraph GROSS_INCOME_LABEL
                                      (.gross-income payslip))]
      [:paragraph (currency-paragraph INCOME_TAX_LABEL
