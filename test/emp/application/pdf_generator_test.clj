@@ -9,6 +9,12 @@
   "should generate path"
   (generator/path ..identifier..) => "/var/lib/emp/..identifier...pdf")
 
+(fact
+  "should generate paragraph"
+  (#'generator/paragraph
+    ..label..
+    ..value..) => "..label..: ..value..")
+
 (facts
   "PDF"
 
@@ -27,7 +33,7 @@
 
   (fact
     "should get generated"
-    (let [employee_line (str "Employee: " ..employee..)
+    (let [employee_line ..employee_line..
           date_line (str "From Date: "
                          ..month..
                          " "
@@ -46,6 +52,8 @@
           super_line (str "Super: $" ..super..)]
       (generator/generate (->TestPayslip)) => ..result..
       (provided
+        (#'generator/paragraph generator/EMPLOYEE_LABEL
+                               ..employee..) => ..employee_line..
         (generator/path ..identifier..) => ..path..
         (pdf
           [{}
