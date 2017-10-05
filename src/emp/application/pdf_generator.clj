@@ -27,23 +27,23 @@
   [label value]
   (paragraph label (str LABEL_POSTFIX CURRENCY_SYMBOL) value))
 
+(defn- date-paragraph
+  [label year month day]
+  (paragraph label (str month " " day " of " year)))
+
 (defn generate
   [payslip]
   (pdf
     [{}
      [:paragraph (paragraph EMPLOYEE_LABEL (.employee-name payslip))]
-     [:paragraph (paragraph FROM_DATE_LABEL
-                            (str (.payment-month payslip)
-                                 " "
-                                 (.payment-start-day payslip)
-                                 " of "
-                                 (.payment-year payslip)))]
-     [:paragraph (paragraph TO_DATE_LABEL
-                            (str (.payment-month payslip)
-                                 " "
-                                 (.payment-end-day payslip)
-                                 " of "
-                                 (.payment-year payslip)))]
+     [:paragraph (date-paragraph FROM_DATE_LABEL
+                                 (.payment-year payslip)
+                                 (.payment-month payslip)
+                                 (.payment-start-day payslip))]
+     [:paragraph (date-paragraph TO_DATE_LABEL
+                                 (.payment-year payslip)
+                                 (.payment-month payslip)
+                                 (.payment-end-day payslip))]
      [:paragraph (currency-paragraph GROSS_INCOME_LABEL
                                      (.gross-income payslip))]
      [:paragraph (currency-paragraph INCOME_TAX_LABEL

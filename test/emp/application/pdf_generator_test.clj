@@ -28,6 +28,14 @@
     ..label..
     ..value..) => "..label..: $..value..")
 
+(fact
+  "should generate date paragraph"
+  (#'generator/date-paragraph
+    ..label..
+    ..year..
+    ..month..
+    ..day..) => "..label..: ..month.. ..day.. of ..year..")
+
 (facts
   "PDF"
 
@@ -47,9 +55,7 @@
   (fact
     "should get generated"
     (let [employee_line ..employee_line..
-          start_date (str ..month..  " " ..start_day.. " of " ..year..)
           start_date_line ..start_date_line..
-          end_date (str ..month..  " " ..end_day.. " of " ..year..)
           end_date_line ..end_date_line..
           gross_income_line ..gross_income_line..
           income_tax_line ..income_tax_line..
@@ -59,10 +65,16 @@
       (provided
         (#'generator/paragraph generator/EMPLOYEE_LABEL
                                ..employee..) => ..employee_line..
-        (#'generator/paragraph generator/FROM_DATE_LABEL
-                               start_date) => start_date_line
-        (#'generator/paragraph generator/TO_DATE_LABEL
-                               end_date) => end_date_line
+        (#'generator/date-paragraph
+          generator/FROM_DATE_LABEL
+          ..year..
+          ..month..
+          ..start_day..) => start_date_line
+        (#'generator/date-paragraph
+          generator/TO_DATE_LABEL
+          ..year..
+          ..month..
+          ..end_day..) => end_date_line
         (#'generator/currency-paragraph
           generator/GROSS_INCOME_LABEL
           ..gross_income..) => ..gross_income_line..
