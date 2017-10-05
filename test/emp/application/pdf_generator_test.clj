@@ -15,6 +15,19 @@
     ..label..
     ..value..) => "..label..: ..value..")
 
+(fact
+  "should generate paragraph with label postfix"
+  (#'generator/paragraph
+    ..label..
+    ..label_postfix..
+    ..value..) => "..label....label_postfix....value..")
+
+(fact
+  "should generate currency paragraph"
+  (#'generator/currency-paragraph
+    ..label..
+    ..value..) => "..label..: $..value..")
+
 (facts
   "PDF"
 
@@ -46,14 +59,26 @@
                             ..end_day..
                             " of "
                             ..year..)
-          gross_income_line (str "Gross Income: $" ..gross_income..)
-          income_tax_line (str "Income Tax: $" ..income_tax..)
-          net_income_line (str "Net Income: $" ..net_income..)
-          super_line (str "Super: $" ..super..)]
+          gross_income_line ..gross_income_line..
+          income_tax_line ..income_tax_line..
+          net_income_line ..net_income_line..
+          super_line ..super_line..]
       (generator/generate (->TestPayslip)) => ..result..
       (provided
         (#'generator/paragraph generator/EMPLOYEE_LABEL
                                ..employee..) => ..employee_line..
+        (#'generator/currency-paragraph
+          generator/GROSS_INCOME_LABEL
+          ..gross_income..) => ..gross_income_line..
+        (#'generator/currency-paragraph
+          generator/INCOME_TAX_LABEL
+          ..income_tax..) => income_tax_line
+        (#'generator/currency-paragraph
+          generator/NET_INCOME_LABEL
+          ..net_income..) => net_income_line
+        (#'generator/currency-paragraph
+          generator/SUPER_LABEL
+          ..super..) => super_line
         (generator/path ..identifier..) => ..path..
         (pdf
           [{}

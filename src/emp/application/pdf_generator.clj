@@ -18,8 +18,14 @@
   (str PATH identifier EXTENSION))
 
 (defn- paragraph
+  ([label label_postfix value]
+   (str label label_postfix value))
+  ([label value]
+   (paragraph label LABEL_POSTFIX value)))
+
+(defn- currency-paragraph
   [label value]
-  (str label LABEL_POSTFIX value))
+  (paragraph label (str LABEL_POSTFIX CURRENCY_SYMBOL) value))
 
 (defn generate
   [payslip]
@@ -40,20 +46,12 @@
                       (.payment-end-day payslip)
                       " of "
                       (.payment-year payslip))]
-     [:paragraph (str GROSS_INCOME_LABEL
-                      LABEL_POSTFIX
-                      CURRENCY_SYMBOL
-                      (.gross-income payslip))]
-     [:paragraph (str INCOME_TAX_LABEL
-                      LABEL_POSTFIX
-                      CURRENCY_SYMBOL
-                      (.income-tax payslip))]
-     [:paragraph (str NET_INCOME_LABEL
-                      LABEL_POSTFIX
-                      CURRENCY_SYMBOL
-                      (.net-income payslip))]
-     [:paragraph (str SUPER_LABEL
-                      LABEL_POSTFIX
-                      CURRENCY_SYMBOL
-                      (.super payslip))] ]
+     [:paragraph (currency-paragraph GROSS_INCOME_LABEL
+                                     (.gross-income payslip))]
+     [:paragraph (currency-paragraph INCOME_TAX_LABEL
+                                     (.income-tax payslip))]
+     [:paragraph (currency-paragraph NET_INCOME_LABEL
+                                     (.net-income payslip))]
+     [:paragraph (currency-paragraph SUPER_LABEL
+                                     (.super payslip))]]
     (path (.identifier payslip))))
