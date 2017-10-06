@@ -1,17 +1,23 @@
-
 # EMP
 
-* [Trello Board](https://trello.com/b/WoAzNyra/)
+Other Repository:
+
 * [API Contracts](https://github.com/svo/emp-contract)
 * [Browser Client](https://github.com/svo/emp-browser)
 * [AWS Provisioning/Continuous Delivery](https://github.com/svo/emp-aws)
-* Continuous Integration
+
+Continuous Integration:
+
   * [server](https://app.shippable.com/github/svo/emp/dashboard)
   * [browser](https://app.shippable.com/github/svo/emp-browser/dashboard)
   * [contracts](https://app.shippable.com/github/svo/emp-contract/dashboard)
-* Docker Hub
+
+Docker Hub:
+
   * [server](https://hub.docker.com/r/svanosselaer/emp)
   * [browser](https://hub.docker.com/r/svanosselaer/emp-browser)
+
+[Trello Board](https://trello.com/b/WoAzNyra/)
 
 You can use the current version to create payslips online at [emp.qual.is](http://emp.qual.is)
 
