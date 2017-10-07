@@ -12,19 +12,19 @@
 (def ^:const BELOW_FIRST_BRACKET_TAX_RATE 0.0)
 (def ^:const FIRST_BRACKET 18200)
 (def ^:const FIRST_BRACKET_FLAT_SUM 0)
-(def ^:const FIRST_BRACKET_CENTS_PER_DOLLAR 0.19)
+(def ^:const FIRST_BRACKET_CENTS_PER_DOLLAR (bigdec 0.19))
 (def ^:const FIRST_BRACKET_FOR_DOLLARS_OVER 18200)
 (def ^:const SECOND_BRACKET 37000)
 (def ^:const SECOND_BRACKET_FLAT_SUM 3572)
-(def ^:const SECOND_BRACKET_CENTS_PER_DOLLAR 0.325)
+(def ^:const SECOND_BRACKET_CENTS_PER_DOLLAR (bigdec 0.325))
 (def ^:const SECOND_BRACKET_FOR_DOLLARS_OVER 37000)
 (def ^:const THIRD_BRACKET 80000)
 (def ^:const THIRD_BRACKET_FLAT_SUM 17547)
-(def ^:const THIRD_BRACKET_CENTS_PER_DOLLAR 0.37)
+(def ^:const THIRD_BRACKET_CENTS_PER_DOLLAR (bigdec 0.37))
 (def ^:const THIRD_BRACKET_FOR_DOLLARS_OVER 80000)
 (def ^:const FOURTH_BRACKET 180000)
 (def ^:const FOURTH_BRACKET_FLAT_SUM 54547)
-(def ^:const FOURTH_BRACKET_CENTS_PER_DOLLAR 0.45)
+(def ^:const FOURTH_BRACKET_CENTS_PER_DOLLAR (bigdec 0.45))
 (def ^:const FOURTH_BRACKET_FOR_DOLLARS_OVER 180000)
 
 (defprotocol Payslip
@@ -76,7 +76,7 @@
    (double (with-precision
              PRECISION (/ (+ flat_sum
                              (* (- annual_salary dollars_over)
-                                (bigdec cents_per_dollar)))
+                                cents_per_dollar))
                           MONTHS_IN_YEAR)))))
 
 (defrecord MonthPayslip [identifier employee payment_year payment_month]
@@ -103,7 +103,7 @@
     (Math/round (double
                   (with-precision PRECISION
                     (* (bigdec (.gross-income this))
-                       (/ (bigdec (:super_rate employee))
+                       (/ (:super_rate employee)
                           PERCENTAGE_DIVIDER))))))
   (payment-year
     [this]
