@@ -8,14 +8,14 @@ Other Repository:
 
 Continuous Integration:
 
-  * [server](https://app.shippable.com/github/svo/emp/dashboard)
-  * [browser](https://app.shippable.com/github/svo/emp-browser/dashboard)
-  * [contracts](https://app.shippable.com/github/svo/emp-contract/dashboard)
+* [server](https://app.shippable.com/github/svo/emp/dashboard)
+* [browser](https://app.shippable.com/github/svo/emp-browser/dashboard)
+* [contracts](https://app.shippable.com/github/svo/emp-contract/dashboard)
 
 Docker Hub:
 
-  * [server](https://hub.docker.com/r/svanosselaer/emp)
-  * [browser](https://hub.docker.com/r/svanosselaer/emp-browser)
+* [server](https://hub.docker.com/r/svanosselaer/emp)
+* [browser](https://hub.docker.com/r/svanosselaer/emp-browser)
 
 [Trello Board](https://trello.com/b/WoAzNyra/)
 
@@ -58,7 +58,7 @@ Consider myself a generalist but have been focused on server side development ov
 
 Happy to implement any changes based on below if required by reviewer.
 
-* limiting annual salary to Integer i.e. maximum of `2,147,483,647` as it seems a reasonable limit and it avoids need for `BigInteger` (`Long` seemed unnecessary)
+* limiting annual salary to Integer i.e. maximum of `2,147,483,647` as it seems a reasonable limit
 * delivering as whole month only as examples are always from the first of the month and phrasing of 'payment start date' is vague about whether or not day is required
 
 ## Assumptions
