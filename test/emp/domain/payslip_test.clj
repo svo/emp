@@ -223,7 +223,7 @@
 
   (fact
     "18,201 - 37,000 19c for each $1 over $18,200"
-    (#'payslip/calculate-income-tax 18201) => (/ 0.19 12))
+    (#'payslip/calculate-income-tax 18201) => 0.01583333333)
 
   (fact
     "$37,001 - $80,000 $3,572 plus 32.5c for each $1 over $37,000"
@@ -231,11 +231,11 @@
 
   (fact
     "$80,001 - $180,000 $17,547 plus 37c for each $1 over $80,000"
-    (#'payslip/calculate-income-tax 80001) => (/ 17547.37 12))
+    (#'payslip/calculate-income-tax 80001) => 1462.280833)
 
   (fact
     "$180,001 and over $54,547 plus 45c for each $1 over $180,000"
-    (#'payslip/calculate-income-tax 180001) => (/ 54547.45 12)))
+    (#'payslip/calculate-income-tax 180001) => 4545.620833))
 
 (fact
   "should create payslip"

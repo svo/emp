@@ -4,6 +4,8 @@
   (:import [emp.domain.employee Employee]
            [java.time Year Month]))
 
+(def ^:const PRECISION 10)
+(def ^:const PERCENTAGE_DIVIDER (bigdec 100.0))
 (def ^:const MONTHS_IN_YEAR 12)
 (def ^:const MINIMUM_YEAR 2012)
 (def ^:const DEFAULT_START_DAY 1)
@@ -71,10 +73,11 @@
      :else
      BELOW_FIRST_BRACKET_TAX_RATE))
   ([annual_salary flat_sum cents_per_dollar dollars_over]
-   (double (/ (+ flat_sum
-                 (* (- annual_salary dollars_over)
-                    cents_per_dollar))
-              MONTHS_IN_YEAR))))
+   (double (with-precision
+             PRECISION (/ (+ flat_sum
+                             (* (- annual_salary dollars_over)
+                                (bigdec cents_per_dollar)))
+                          MONTHS_IN_YEAR)))))
 
 (defrecord MonthPayslip [identifier employee payment_year payment_month]
   Payslip
@@ -97,7 +100,11 @@
     (- (.gross-income this) (.income-tax this)))
   (super
     [this]
-    (Math/round (* (.gross-income this) (/ (:super_rate employee) 100.0))))
+    (Math/round (double
+                  (with-precision PRECISION
+                    (* (bigdec (.gross-income this))
+                       (/ (bigdec (:super_rate employee))
+                          PERCENTAGE_DIVIDER))))))
   (payment-year
     [this]
     (str payment_year))
