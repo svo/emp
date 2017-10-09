@@ -15,7 +15,7 @@
 
 (defn- valid-super-rate?
   [super_rate]
-  (and (integer? super_rate)
+  (and (number? super_rate)
        (<= super_rate MAX_SUPER_RATE)
        (>= super_rate MIN_SUPER_RATE)))
 

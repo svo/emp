@@ -140,7 +140,7 @@
     "should calculate super"
     (let [annual_salary 60050
           employee (map->Employee {:annual_salary annual_salary
-                                   :super_rate 9})]
+                                   :super_rate 9.0})]
       (.super (->MonthPayslip anything
                               employee
                               anything
@@ -150,7 +150,7 @@
     "should calculate super with small salary"
     (let [annual_salary 1
           employee (map->Employee {:annual_salary annual_salary
-                                   :super_rate 9})]
+                                   :super_rate 9.0})]
       (.super (->MonthPayslip anything
                               employee
                               anything

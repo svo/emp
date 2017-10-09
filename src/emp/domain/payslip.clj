@@ -103,7 +103,7 @@
     (Math/round (double
                   (with-precision PRECISION
                     (* (bigdec (.gross-income this))
-                       (/ (:super_rate employee)
+                       (/ (bigdec (:super_rate employee))
                           PERCENTAGE_DIVIDER))))))
   (payment-year
     [this]

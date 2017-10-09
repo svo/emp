@@ -92,6 +92,10 @@
   (#'employee/valid-super-rate? "") => false)
 
 (fact
+  "should report double as a valid super rate"
+  (#'employee/valid-super-rate? 0.1) => true)
+
+(fact
   "should error if annual salary is not valid"
   (employee/create (map->Person {})
                    ..annual_salary..
